@@ -47,7 +47,8 @@ public class ApplicationConfig {
                 .csrf(withDefaults())
 
                 .authorizeHttpRequests((requests) -> requests
-                                .requestMatchers("/css/**", "/", "/403", "/errorpage", "/simulateError").permitAll()
+                                .requestMatchers("/css/**", "/", "/403", "/errorpage", "/simulateError",
+                                        "/register").permitAll()
                                 .requestMatchers("/admin/**").hasRole("ADMIN") // the ** represents any subpath
                                 .requestMatchers("/user/**").hasRole("USER")
                                 .requestMatchers("/shared/**").hasAnyRole("USER", "ADMIN")
