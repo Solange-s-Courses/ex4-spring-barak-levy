@@ -29,7 +29,13 @@ public class UserService {
 
     // Find user by ID
     public Optional<UserEntity> getUserById(Long id) {
-        return userRepository.findById(id);
+        Optional<UserEntity> userOpt = userRepository.findById(id);
+        userOpt.ifPresent(user -> {
+            // Initialize lazy collection
+            user.getProducts().size();  // or Hibernate.initialize(user.getProducts());
+            user.getReviews().size();   // if needed
+        });
+        return userOpt;
     }
 
     // Find all users
@@ -69,8 +75,8 @@ public class UserService {
         });
     }
 
-    // Find user by username
-    public Optional<UserEntity> findByUserName(String username) {
-        return userRepository.findByUserName(username);
+    // Find user by email
+    public Optional<UserEntity> findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 }

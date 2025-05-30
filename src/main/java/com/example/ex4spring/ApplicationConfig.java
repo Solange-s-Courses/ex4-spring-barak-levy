@@ -49,7 +49,7 @@ public class ApplicationConfig {
                 .authorizeHttpRequests((requests) -> requests
                                 .requestMatchers("/css/**", "/", "/403", "/errorpage", "/simulateError",
                                         "/register").permitAll()
-                                .requestMatchers("/admin/**").hasRole("ADMIN") // the ** represents any subpath
+                                .requestMatchers("/admin/**", "/api/users/**").hasRole("ADMIN") // the ** represents any subpath
                                 .requestMatchers("/user/**").hasRole("USER")
                                 .requestMatchers("/shared/**").hasAnyRole("USER", "ADMIN")
                 )

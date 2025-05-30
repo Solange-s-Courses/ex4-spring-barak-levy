@@ -34,10 +34,10 @@ public class UserController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // GET user by username
-    @GetMapping("/username/{userName}")
-    public ResponseEntity<UserEntity> getUserByUserName(@PathVariable String userName) {
-        Optional<UserEntity> userOpt = userService.findByUserName(userName);
+    // GET user by email
+    @GetMapping("/email/{email}")
+    public ResponseEntity<UserEntity> getUserByEmail(@PathVariable String email) {
+        Optional<UserEntity> userOpt = userService.findByEmail(email);
         return userOpt.map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
