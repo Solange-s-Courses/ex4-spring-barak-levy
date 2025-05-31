@@ -74,7 +74,9 @@ public class ProductController {
             return "error";
         }
 
-        model.addAttribute("products", productService.findByCompany(company));
-        return "company-products"; // template that shows the product list
+        Long companyId = company.getId();
+
+        model.addAttribute("products", productService.findByCompanyId(companyId));
+        return "company-products"; // The page that shows the products list
     }
 }

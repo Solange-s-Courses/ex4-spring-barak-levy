@@ -26,6 +26,10 @@ public class CompanyService {
         return companyRepository.findById(id);
     }
 
+    public Optional<CompanyEntity> findByEmail(String email) {
+        return companyRepository.findByEmail(email);
+    }
+
     public CompanyEntity save(CompanyEntity company) {
         return companyRepository.save(company);
     }
