@@ -20,6 +20,7 @@ public class UserEntity extends BaseUser {
 
     public UserEntity(String userName, String email, String password) {
         super(userName, email, password);
+        setRole(UserRole.USER);
     }
 
     public List<ProductEntity> getProducts() {

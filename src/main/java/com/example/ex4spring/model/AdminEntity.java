@@ -13,5 +13,6 @@ public class AdminEntity extends BaseUser {
 
     public AdminEntity(String userName, String email, String password) {
         super(userName, email, password);
+        setRole(UserRole.ADMIN);
     }
 }

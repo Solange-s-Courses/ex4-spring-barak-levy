@@ -1,0 +1,36 @@
+package com.example.ex4spring.services;
+
+import com.example.ex4spring.model.BaseUser;
+import com.example.ex4spring.repo.BaseUserRepository;
+
+import java.util.List;
+import java.util.Optional;
+
+public abstract class BaseUserService<T extends BaseUser, R extends BaseUserRepository<T>> {
+
+    protected final R repository;
+
+    public BaseUserService(R repository) {
+        this.repository = repository;
+    }
+
+    public T save(T user) {
+        return repository.save(user);
+    }
+
+    public Optional<T> findById(Long id) {
+        return repository.findById(id);
+    }
+
+    public List<T> findAll() {
+        return repository.findAll();
+    }
+
+    public void deleteById(Long id) {
+        repository.deleteById(id);
+    }
+
+    public Optional<T> findByEmail(String email) {
+        return repository.findByEmail(email);
+    }
+}

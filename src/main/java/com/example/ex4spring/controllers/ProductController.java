@@ -25,6 +25,11 @@ public class ProductController {
         this.companyService = companyService;
     }
 
+    @GetMapping("/management")
+    public String showProductManagementPage() {
+        return "/products-management";
+    }
+
     // Show product creation form
     @GetMapping("/add")
     public String showCreateProductForm() {

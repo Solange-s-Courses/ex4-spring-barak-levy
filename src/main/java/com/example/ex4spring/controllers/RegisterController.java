@@ -1,9 +1,8 @@
 package com.example.ex4spring.controllers;
 
-import com.example.ex4spring.model.AdminEntity;
-import com.example.ex4spring.model.BaseUser;
-import com.example.ex4spring.model.CompanyEntity;
-import com.example.ex4spring.model.UserEntity;
+import com.example.ex4spring.model.*;
+import com.example.ex4spring.services.BaseUserService; // assuming this is the generic service
+import com.example.ex4spring.services.CompanyService;
 import com.example.ex4spring.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,11 +17,18 @@ import java.util.Map;
 public class RegisterController {
 
     private final UserService userService;
+    // private final AdminService adminService;
+    private final CompanyService companyService;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public RegisterController(UserService userService, PasswordEncoder passwordEncoder) {
+    public RegisterController(UserService userService,
+                             // AdminService adminService,
+                              CompanyService companyService,
+                              PasswordEncoder passwordEncoder) {
         this.userService = userService;
+       // this.adminService = adminService;
+        this.companyService = companyService;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -33,7 +39,9 @@ public class RegisterController {
 
     @GetMapping("/api/users/check-email")
     public ResponseEntity<Map<String, Boolean>> checkEmailExists(@RequestParam String email) {
-        boolean exists = userService.findByEmail(email).isPresent();
+        boolean exists = userService.findByEmail(email).isPresent() ||
+                // adminService.findByEmail(email).isPresent() ||
+                companyService.findByEmail(email).isPresent();
         return ResponseEntity.ok(Collections.singletonMap("exists", exists));
     }
 
@@ -44,26 +52,37 @@ public class RegisterController {
                                @RequestParam String password,
                                Map<String, Object> model) {
 
-        if (userService.findByEmail(email).isPresent()) {
+        // Check email in all user types
+        boolean emailExists =
+                userService.findByEmail(email).isPresent() ||
+                        // adminService.findByEmail(email).isPresent() ||
+                        companyService.findByEmail(email).isPresent();
+
+        if (emailExists) {
             model.put("error", "Email is already in use");
             return "/register";
         }
 
         String encodedPassword = passwordEncoder.encode(password);
 
-        BaseUser newUser;
-
         switch (userType.toUpperCase()) {
             case "ADMIN":
-                newUser = new AdminEntity(userName, email, encodedPassword);
+                AdminEntity admin = new AdminEntity(userName, email, encodedPassword);
+                admin.setRole(UserRole.ADMIN);
+                // adminService.save(admin);
                 break;
+
             case "COMPANY":
-                newUser = new CompanyEntity(userName, email, encodedPassword);
+                CompanyEntity company = new CompanyEntity(userName, email, encodedPassword);
+                company.setRole(UserRole.COMPANY);
+                companyService.save(company);
                 break;
+
             case "USER":
             default:
-                newUser = new UserEntity(userName, email, encodedPassword);
-                userService.saveUser((UserEntity) newUser);
+                UserEntity user = new UserEntity(userName, email, encodedPassword);
+                user.setRole(UserRole.USER);
+                userService.save(user);
                 break;
         }
 

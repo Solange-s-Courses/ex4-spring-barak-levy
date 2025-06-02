@@ -8,75 +8,46 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
 @Transactional
-public class UserService {
-
-    private final UserRepository userRepository;
+public class UserService extends BaseUserService<UserEntity, UserRepository> {
 
     @Autowired
     public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+        super(userRepository);
     }
 
-    // Create or update a user
-    public UserEntity saveUser(UserEntity user) {
-        return userRepository.save(user);
-    }
-
-    // Find user by ID
-    public Optional<UserEntity> getUserById(Long id) {
-        Optional<UserEntity> userOpt = userRepository.findById(id);
+    @Override
+    public Optional<UserEntity> findById(Long id) {
+        Optional<UserEntity> userOpt = super.findById(id);
         userOpt.ifPresent(user -> {
-            // Initialize lazy collection
-            user.getProducts().size();  // or Hibernate.initialize(user.getProducts());
-            user.getReviews().size();   // if needed
+            // Eagerly initialize lazy collections
+            user.getProducts().size();
+            user.getReviews().size();
         });
         return userOpt;
     }
 
-    // Find all users
-    public List<UserEntity> getAllUsers() {
-        return userRepository.findAll();
-    }
-
-    // Delete user
-    public void deleteUser(Long id) {
-        userRepository.deleteById(id);
-    }
-
-    // Add product to user
     public void addProductToUser(Long userId, ProductEntity product) {
-        Optional<UserEntity> optionalUser = userRepository.findById(userId);
-        optionalUser.ifPresent(user -> {
+        findById(userId).ifPresent(user -> {
             user.addProduct(product);
-            userRepository.save(user);
+            save(user);
         });
     }
 
-    // Remove product from user
     public void removeProductFromUser(Long userId, ProductEntity product) {
-        Optional<UserEntity> optionalUser = userRepository.findById(userId);
-        optionalUser.ifPresent(user -> {
+        findById(userId).ifPresent(user -> {
             user.removeProduct(product);
-            userRepository.save(user);
+            save(user);
         });
     }
 
-    // Add review to user
     public void addReviewToUser(Long userId, ReviewEntity review) {
-        Optional<UserEntity> optionalUser = userRepository.findById(userId);
-        optionalUser.ifPresent(user -> {
+        findById(userId).ifPresent(user -> {
             user.getReviews().add(review);
-            userRepository.save(user);
+            save(user);
         });
-    }
-
-    // Find user by email
-    public Optional<UserEntity> findByEmail(String email) {
-        return userRepository.findByEmail(email);
     }
 }

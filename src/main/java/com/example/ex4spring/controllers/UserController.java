@@ -23,13 +23,13 @@ public class UserController {
     // GET all users
     @GetMapping
     public List<UserEntity> getAllUsers() {
-        return userService.getAllUsers();
+        return userService.findAll();
     }
 
     // GET user by ID
     @GetMapping("/{id}")
     public ResponseEntity<UserEntity> getUserById(@PathVariable Long id) {
-        Optional<UserEntity> userOpt = userService.getUserById(id);
+        Optional<UserEntity> userOpt = userService.findById(id);
         return userOpt.map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -45,21 +45,21 @@ public class UserController {
     // POST - create a new user
     @PostMapping
     public ResponseEntity<UserEntity> createUser(@RequestBody UserEntity user) {
-        UserEntity createdUser = userService.saveUser(user);
+        UserEntity createdUser = userService.save(user);
         return ResponseEntity.ok(createdUser);
     }
 
     // PUT - update existing user
     @PutMapping("/{id}")
     public ResponseEntity<UserEntity> updateUser(@PathVariable Long id, @RequestBody UserEntity updatedUser) {
-        Optional<UserEntity> userOpt = userService.getUserById(id);
+        Optional<UserEntity> userOpt = userService.findById(id);
 
         if (userOpt.isPresent()) {
             UserEntity existingUser = userOpt.get();
             existingUser.setUserName(updatedUser.getUserName());
             existingUser.setEmail(updatedUser.getEmail());
             existingUser.setPassword(updatedUser.getPassword());
-            userService.saveUser(existingUser);
+            userService.save(existingUser);
             return ResponseEntity.ok(existingUser);
         } else {
             return ResponseEntity.notFound().build();
@@ -69,9 +69,9 @@ public class UserController {
     // DELETE - remove user
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-        Optional<UserEntity> userOpt = userService.getUserById(id);
+        Optional<UserEntity> userOpt = userService.findById(id);
         if (userOpt.isPresent()) {
-            userService.deleteUser(id);
+            userService.deleteById(id);
             return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.notFound().build();

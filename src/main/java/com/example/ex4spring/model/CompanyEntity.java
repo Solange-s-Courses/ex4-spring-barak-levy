@@ -17,6 +17,7 @@ public class CompanyEntity extends BaseUser {
 
     public CompanyEntity(String userName, String email, String password) {
         super(userName, email, password);
+        setRole(UserRole.COMPANY);
     }
 
     public List<ProductEntity> getProducts() {

@@ -17,6 +17,9 @@ public abstract class BaseUser {
     @NotBlank(message = "Name is mandatory")
     private String userName;
 
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
+
     @NotBlank(message = "Email is mandatory")
     @Email(message = "Email is not valid, please try again")
     private String email;
@@ -46,6 +49,14 @@ public abstract class BaseUser {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
     }
 
     public String getEmail() {
