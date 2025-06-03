@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/products")
@@ -33,7 +34,33 @@ public class ProductController {
     // Show product creation form
     @GetMapping("/add")
     public String showCreateProductForm() {
-        return "create-product"; // Thymeleaf template name
+        return "create-product";
+    }
+
+    @GetMapping("")
+    public String showProductsPage(
+            @RequestParam(required = false) Category category,
+            @RequestParam(required = false) String name,
+            Model model) {
+
+        List<ProductEntity> products;
+
+        if (category == null && (name == null || name.trim().isEmpty())) {
+            products = productService.findAll();
+        } else if (category != null && (name == null || name.trim().isEmpty())) {
+            products = productService.findByCategory(category);
+        } else if (category == null && name != null && !name.trim().isEmpty()) {
+            products = productService.findByName(name.trim());
+        } else {
+            products = productService.findByCategoryAndName(category, name.trim());
+        }
+
+        model.addAttribute("products", products);
+        model.addAttribute("categories", List.of(Category.values())); // if using enum
+        model.addAttribute("selectedCategory", category);
+        model.addAttribute("searchName", name);
+
+        return "products";
     }
 
     // Handle product creation

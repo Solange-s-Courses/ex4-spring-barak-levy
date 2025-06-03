@@ -25,10 +25,10 @@ public class MainController {
         return "index";
     }
 
-    @GetMapping("/login")
+    /* @GetMapping("/login")
     public String login() {
         return "login";
-    }
+    } */
 
     /** User zone index. */
     @RequestMapping("/user")

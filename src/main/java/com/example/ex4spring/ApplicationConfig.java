@@ -16,7 +16,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
 public class ApplicationConfig {
 
-    @Bean
+    /* @Bean
     public UserDetailsService userDetailsService(PasswordEncoder bCryptPasswordEncoder) {
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
         manager.createUser(User.withUsername("user")
@@ -32,7 +32,7 @@ public class ApplicationConfig {
                 .roles("USER", "ADMIN")
                 .build());
         return manager;
-    }
+    } */
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -48,7 +48,7 @@ public class ApplicationConfig {
 
                 .authorizeHttpRequests((requests) -> requests
                                 .requestMatchers("/css/**", "/", "/403", "/errorpage", "/simulateError",
-                                        "/register", "/login", "/products/management").permitAll()
+                                        "/register", "/login", "/products/management", "/products").permitAll()
                                 .requestMatchers("/admin/**", "/api/users/**").hasRole("ADMIN") // the ** represents any subpath
                                 .requestMatchers("/user/**").hasRole("USER")
                                 .requestMatchers("/shared/**").hasAnyRole("USER", "ADMIN")
@@ -56,9 +56,11 @@ public class ApplicationConfig {
 
                 .formLogin(form -> form
                         .loginPage("/login")
+                        .loginProcessingUrl("/login")
                         .usernameParameter("email")
                         .passwordParameter("password")
                         .defaultSuccessUrl("/home", true)
+                        // .failureUrl("/")
                         .permitAll()
                 )
 

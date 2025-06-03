@@ -42,4 +42,12 @@ public class ProductService {
     public List<ProductEntity> findByCategory(Category category) {
         return productRepository.findByCategory(category);
     }
+
+    public List<ProductEntity> findByName(String name) {
+        return productRepository.findByNameContainingIgnoreCase(name);
+    }
+
+    public List<ProductEntity> findByCategoryAndName(Category category, String name) {
+        return productRepository.findByCategoryAndNameContainingIgnoreCase(category, name);
+    }
 }
