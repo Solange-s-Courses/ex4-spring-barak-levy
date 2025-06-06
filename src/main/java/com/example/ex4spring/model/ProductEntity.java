@@ -16,15 +16,18 @@ public class ProductEntity {
     private int quantity;
     private String description;
 
+    @Column(name = "is_deleted")
+    private boolean isDeleted = false;
+
     @Enumerated(EnumType.STRING)
     private Category category;
 
     // The company who sells the product
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "company_id")
     private CompanyEntity company;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "owner_id")
     private UserEntity owner;
 
@@ -113,5 +116,13 @@ public class ProductEntity {
     public void removeReview(ReviewEntity review) {
         reviews.remove(review);
         review.setProduct(null);
+    }
+
+    public boolean getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(boolean deleted) {
+        this.isDeleted = deleted;
     }
 }

@@ -20,34 +20,37 @@ public class ProductService {
     }
 
     public List<ProductEntity> findAll() {
-        return productRepository.findAll();
+        return productRepository.findByIsDeletedFalse();
     }
 
     public Optional<ProductEntity> findById(Long id) {
-        return productRepository.findById(id);
+        return productRepository.findByIdAndIsDeletedFalse(id);
     }
 
     public ProductEntity save(ProductEntity product) {
         return productRepository.save(product);
     }
 
-    public void deleteById(Long id) {
-        productRepository.deleteById(id);
+    public void softDeleteById(Long id) {
+        productRepository.findById(id).ifPresent(product -> {
+            product.setIsDeleted(true);
+            productRepository.save(product);
+        });
     }
 
     public List<ProductEntity> findByCompanyId(Long companyId) {
-        return productRepository.findByCompanyId(companyId);
+        return productRepository.findByCompanyIdAndIsDeletedFalse(companyId);
     }
 
     public List<ProductEntity> findByCategory(Category category) {
-        return productRepository.findByCategory(category);
+        return productRepository.findByCategoryAndIsDeletedFalse(category);
     }
 
     public List<ProductEntity> findByName(String name) {
-        return productRepository.findByNameContainingIgnoreCase(name);
+        return productRepository.findByNameContainingIgnoreCaseAndIsDeletedFalse(name);
     }
 
     public List<ProductEntity> findByCategoryAndName(Category category, String name) {
-        return productRepository.findByCategoryAndNameContainingIgnoreCase(category, name);
+        return productRepository.findByCategoryAndNameContainingIgnoreCaseAndIsDeletedFalse(category, name);
     }
 }
