@@ -1,5 +1,6 @@
 package com.example.ex4spring;
 
+import com.example.ex4spring.services.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -34,6 +35,11 @@ public class ApplicationConfig {
         return manager;
     } */
 
+    /* @Bean
+    public UserDetailsService userDetailsService() {
+        return new CustomUserDetailsService();
+    } */
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -48,18 +54,20 @@ public class ApplicationConfig {
 
                 .authorizeHttpRequests((requests) -> requests
                                 .requestMatchers("/css/**", "/", "/403", "/errorpage", "/simulateError",
-                                        "/register", "/login", "/products/management", "/products").permitAll()
+                                        "/register", "/login").permitAll()
                                 .requestMatchers("/admin/**", "/api/users/**").hasRole("ADMIN") // the ** represents any subpath
                                 .requestMatchers("/user/**").hasRole("USER")
-                                .requestMatchers("/shared/**").hasAnyRole("USER", "ADMIN")
+                                .requestMatchers("/products/management", "/products/add", "/products/my").hasRole("COMPANY")
+                                .requestMatchers("/shared/**", "/products", "/products/my", "/api/users/profile",
+                                        "/profile").hasAnyRole("USER", "COMPANY", "ADMIN")
                 )
 
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .loginProcessingUrl("/login")
+                        // .loginProcessingUrl("/login")
                         .usernameParameter("email")
                         .passwordParameter("password")
-                        .defaultSuccessUrl("/home", true)
+                        .defaultSuccessUrl("/products", true)
                         // .failureUrl("/")
                         .permitAll()
                 )

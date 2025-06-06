@@ -1,5 +1,6 @@
 package com.example.ex4spring.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
 public class CompanyEntity extends BaseUser {
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<ProductEntity> products = new ArrayList<>();
 
     public CompanyEntity() {
