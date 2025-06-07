@@ -59,7 +59,7 @@ public class ApplicationConfig {
                                 .requestMatchers("/user/**", "/orders/confirm", "/orders/buy").hasRole("USER")
                                 .requestMatchers("/products/management", "/products/add", "/products/my").hasRole("COMPANY")
                                 .requestMatchers("/shared/**", "/products", "/products/my", "/api/users/profile",
-                                        "/profile").hasAnyRole("USER", "COMPANY", "ADMIN")
+                                        "/profile", "/products/**").hasAnyRole("USER", "COMPANY", "ADMIN")
                                 .requestMatchers("/products/delete/**").hasAnyRole("COMPANY", "ADMIN")
                                 .requestMatchers("orders/my-orders").hasAnyRole("USER", "COMPANY")
                 )

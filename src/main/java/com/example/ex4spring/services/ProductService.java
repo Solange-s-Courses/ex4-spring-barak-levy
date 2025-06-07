@@ -1,7 +1,9 @@
 package com.example.ex4spring.services;
 
 import com.example.ex4spring.model.Category;
+import com.example.ex4spring.model.OrderEntity;
 import com.example.ex4spring.model.ProductEntity;
+import com.example.ex4spring.repo.OrderRepository;
 import com.example.ex4spring.repo.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

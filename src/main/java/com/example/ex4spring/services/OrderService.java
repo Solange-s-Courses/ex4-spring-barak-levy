@@ -71,4 +71,14 @@ public class OrderService {
 
         return Optional.of(orderRepository.save(order));
     }
+
+    public boolean hasUserPurchasedProduct(Long userId, Long productId) {
+        List<OrderEntity> orders = orderRepository.findByBuyerId(userId);
+        for (OrderEntity order : orders) {
+            if (order.getProduct().getId().equals(productId)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -1,10 +1,7 @@
 package com.example.ex4spring.controllers;
 
-import com.example.ex4spring.model.Category;
-import com.example.ex4spring.model.CompanyEntity;
-import com.example.ex4spring.model.ProductEntity;
-import com.example.ex4spring.services.CompanyService;
-import com.example.ex4spring.services.ProductService;
+import com.example.ex4spring.model.*;
+import com.example.ex4spring.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,12 +15,20 @@ import java.util.List;
 public class ProductController {
 
     private final ProductService productService;
+    private final ReviewService reviewService;
     private final CompanyService companyService;
+    private final UserService userService;
+    private final OrderService orderService;
 
     @Autowired
-    public ProductController(ProductService productService, CompanyService companyService) {
+    public ProductController(ProductService productService, CompanyService companyService,
+                             ReviewService reviewService, UserService userService,
+                             OrderService orderService) {
         this.productService = productService;
         this.companyService = companyService;
+        this.reviewService = reviewService;
+        this.userService = userService;
+        this.orderService = orderService;
     }
 
     @GetMapping("/management")
@@ -121,5 +126,68 @@ public class ProductController {
         // }
 
         return "redirect:/products/my";
+    }
+
+    @GetMapping("/{id}")
+    public String viewProduct(@PathVariable Long id, Principal principal, Model model) {
+        ProductEntity product = productService.findById(id).orElse(null);
+        if (product == null) {
+            model.addAttribute("error", "Product not found.");
+            return "error";
+        }
+
+        List<ReviewEntity> reviews = reviewService.findByProductId(id);
+        model.addAttribute("product", product);
+        model.addAttribute("reviews", reviews);
+
+        boolean canReview = false;
+        if (principal != null) {
+            UserEntity user = userService.findByEmail(principal.getName()).orElse(null);
+            if (user != null) {
+                canReview = orderService.hasUserPurchasedProduct(user.getId(), id);
+            }
+        }
+        model.addAttribute("canReview", canReview);
+
+        return "product-details";
+    }
+
+    @PostMapping("/{id}/review")
+    public String addReview(@PathVariable Long id,
+                            @RequestParam int rating,
+                            @RequestParam String comment,
+                            Principal principal,
+                            Model model) {
+        if (principal == null) {
+            model.addAttribute("error", "You must be logged in to add a review.");
+            return "error";
+        }
+
+        UserEntity user = userService.findByEmail(principal.getName()).orElse(null);
+        if (user == null) {
+            model.addAttribute("error", "User not found.");
+            return "error";
+        }
+
+        if (!orderService.hasUserPurchasedProduct(user.getId(), id)) {
+            model.addAttribute("error", "You can only review products you have purchased.");
+            return "error";
+        }
+
+        ProductEntity product = productService.findById(id).orElse(null);
+        if (product == null) {
+            model.addAttribute("error", "Product not found.");
+            return "error";
+        }
+
+        ReviewEntity review = new ReviewEntity();
+        review.setProduct(product);
+        review.setReviewer(user);
+        review.setRating(rating);
+        review.setComment(comment);
+
+        reviewService.save(review);
+
+        return "redirect:/products/" + id;
     }
 }
