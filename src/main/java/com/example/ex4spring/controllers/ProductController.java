@@ -116,9 +116,9 @@ public class ProductController {
     public String deleteProductById(@PathVariable Long id, Principal principal) {
         ProductEntity product = productService.findById(id).orElseThrow();
 
-        if (product.getCompany().getEmail().equals(principal.getName())) {
+        // if (product.getCompany().getEmail().equals(principal.getName())) {
             productService.softDeleteById(id);
-        }
+        // }
 
         return "redirect:/products/my";
     }

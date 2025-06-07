@@ -54,13 +54,14 @@ public class ApplicationConfig {
 
                 .authorizeHttpRequests((requests) -> requests
                                 .requestMatchers("/css/**", "/", "/403", "/errorpage", "/simulateError",
-                                        "/register", "/login", "/**").permitAll()
+                                        "/register", "/login").permitAll()
                                 .requestMatchers("/admin/**", "/api/users/**").hasRole("ADMIN") // the ** represents any subpath
-                                .requestMatchers("/user/**").hasRole("USER")
+                                .requestMatchers("/user/**", "/orders/confirm", "/orders/buy").hasRole("USER")
                                 .requestMatchers("/products/management", "/products/add", "/products/my").hasRole("COMPANY")
                                 .requestMatchers("/shared/**", "/products", "/products/my", "/api/users/profile",
                                         "/profile").hasAnyRole("USER", "COMPANY", "ADMIN")
                                 .requestMatchers("/products/delete/**").hasAnyRole("COMPANY", "ADMIN")
+                                .requestMatchers("orders/my-orders").hasAnyRole("USER", "COMPANY")
                 )
 
                 .formLogin(form -> form

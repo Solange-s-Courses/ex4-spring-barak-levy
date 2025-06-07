@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Menu</title>
@@ -14,7 +14,13 @@
 
         <div class="d-flex gap-2 mb-4 align-items-center">
             <a th:href="@{/products}" class="btn btn-primary">Products</a>
-            <a th:href="@{/products/my}" class="btn btn-primary">My Products</a>
+
+            <a sec:authorize="hasRole('COMPANY')" th:href="@{/products/my}"
+               class="btn btn-primary">My Products</a>
+
+            <a sec:authorize="hasAnyRole('USER', 'COMPANY')"
+               th:href="@{/orders/my-orders}" class="btn btn-primary">Orders</a>
+
             <a th:href="@{/profile}" class="btn btn-primary">Profile</a>
 
             <div class="ms-auto">
