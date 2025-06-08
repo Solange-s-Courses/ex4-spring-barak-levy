@@ -61,7 +61,7 @@
                         <input type="hidden" name="quantity" value="1" />
                         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 
-                        <a th:href="@{/products/{id}(id=${product.id})}"
+                        <a th:href="@{/products/product-page/{id}(id=${product.id})}"
                            class="btn btn-warning btn-sm me-2 float-start">View Product</a>
 
                         <button sec:authorize="hasAnyRole('USER')"

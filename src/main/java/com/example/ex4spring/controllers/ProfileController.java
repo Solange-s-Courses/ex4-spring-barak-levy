@@ -30,7 +30,7 @@ public class ProfileController {
             model.addAttribute("user", userOpt.get());
             return "profile";
         } else {
-            return "error"; // or redirect to login/error page
+            return "error";
         }
     }
 }

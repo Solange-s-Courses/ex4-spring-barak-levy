@@ -130,12 +130,18 @@ public class ProductController {
         return "redirect:/products/my";
     }
 
-    @GetMapping("/{id}")
-    public String viewProduct(@PathVariable Long id, Principal principal, Model model) {
+    @GetMapping("/product-page/{id}")
+    public String viewProduct(@PathVariable Long id,
+                              @RequestParam(value = "error", required = false) String error,
+                              Principal principal, Model model) {
         ProductEntity product = productService.findById(id).orElse(null);
         if (product == null) {
             model.addAttribute("error", "Product not found.");
             return "error";
+        }
+
+        if (error != null) {
+            model.addAttribute("error", error);
         }
 
         List<ReviewEntity> reviews = reviewService.findByProductId(id);
@@ -178,7 +184,7 @@ public class ProductController {
         return "product-details";
     }
 
-    @PostMapping("/{id}/review")
+    @PostMapping("/product-page/{id}/review")
     public String addOrEditReview(@PathVariable Long id,
                                   @RequestParam int rating,
                                   @RequestParam String comment,
@@ -225,7 +231,7 @@ public class ProductController {
         }
 
         reviewService.save(review);
-        return "redirect:/products/" + id;
+        return "redirect:/products/product-page/" + id;
     }
 
     @GetMapping("/edit/{id}")

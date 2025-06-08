@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -38,17 +40,20 @@ public class OrderController {
     @PostMapping("/confirm")
     public String confirmPurchase(@RequestParam Long productId,
                                   @RequestParam int quantity,
+                                  RedirectAttributes redirectAttributes,
                                   Model model) {
         ProductEntity product = productService.findById(productId).orElse(null);
         if (product == null || product.getQuantity() < quantity) {
-            model.addAttribute("error", "Invalid product or insufficient stock.");
-            return "error";
+            // model.addAttribute("error", "Invalid product or insufficient stock.");
+            redirectAttributes.addFlashAttribute("error", "Not enough stock for this product.");
+            return "redirect:/products/product-page/" + productId;
+            // return "error";
         }
 
         model.addAttribute("product", product);
         model.addAttribute("quantity", quantity);
         model.addAttribute("totalPrice", product.getPrice() * quantity);
-        return "confirm-buy"; // You need to create this view
+        return "confirm-buy";
     }
 
     // Step 2: Actually place the order after confirmation
@@ -56,12 +61,14 @@ public class OrderController {
     @Transactional
     public String placeOrder(@RequestParam Long productId,
                              @RequestParam int quantity,
+                             RedirectAttributes redirectAttributes,
                              Principal principal,
                              Model model) {
         ProductEntity product = productService.findById(productId).orElse(null);
         if (product == null || product.getQuantity() < quantity) {
             model.addAttribute("error", "Not enough stock or product doesn't exist.");
-            return "error";
+            return "redirect:/products/product-page/" + productId;
+            // return "error";
         }
 
         UserEntity buyer = userService.findByEmail(principal.getName()).orElse(null);
@@ -84,16 +91,24 @@ public class OrderController {
         product.setQuantity(product.getQuantity() - quantity);
         productService.save(product);
 
+        redirectAttributes.addFlashAttribute("message",
+                "Purchase " + product.getName() + " successful.");
         return "redirect:/orders/my-orders";
     }
 
     // View user's orders
     @GetMapping("/my-orders")
-    public String viewMyOrders(Principal principal, Model model) {
+    public String viewMyOrders(Principal principal,
+                               @RequestParam(value = "message", required = false) String message,
+                               Model model) {
         BaseUser user = baseUserService.findByEmail(principal.getName()).orElse(null);
         if (user == null) {
             model.addAttribute("error", "User not found.");
             return "error";
+        }
+
+        if (message != null) {
+            model.addAttribute("message", message);
         }
 
         List<OrderEntity> orders = new ArrayList<>();
