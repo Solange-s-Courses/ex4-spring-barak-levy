@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title th:text="${product.name}">Product Details</title>
@@ -10,46 +10,120 @@
 <div th:replace="headers/menu :: menu"></div>
 
 <div class="container mt-5">
-    <h1 th:text="${product.name}">Product Name</h1>
-    <p th:text="${product.description}">Product Description</p>
-    <p>Price: <span th:text="${product.price}">0.00</span> ₪</p>
+    <div class="card">
+        <div class="card-header bg-warning text-white text-center">
+            <h1 th:text="${product.name}">Product Name</h1>
+        </div>
+    </div>
 
-    <h2>Reviews</h2>
+    <br>
+    <h5>Category: <span th:text="${product.category}"></span></h5>
+
+    <br>
+    <h5 th:text="${product.description}">Product Description</h5>
+
+    <br>
+    <h5>Price: <span class="text-green" th:text="${product.price}">0.00</span> ₪</h5>
+
+    <br>
+    <h5>Rating: <span th:text="${#numbers.formatDecimal(averageRating, 1, 1)}">0.0</span>
+        <span th:each="i : ${#numbers.sequence(1, 5)}"
+              th:text="${i <= (averageRating >= 4.5 ?
+               T(java.lang.Math).ceil(averageRating) : T(java.lang.Math).floor(averageRating)) ? '★' : '☆'}"
+              style="color: gold;"></span>
+    </h5>
+
+    <br>
+    <h5>Products left in stock: <span th:text="${product.quantity}"></span></h5>
+
+    <br>
+    <div class="card">
+        <div class="card-header bg-info text-white text-center">
+            <h2>Reviews</h2>
+        </div>
+    </div>
+
+    <br>
     <div th:if="${#lists.isEmpty(reviews)}">
         <p>No reviews yet.</p>
     </div>
-    <div th:each="review : ${reviews}">
-        <p><strong th:text="${review.reviewer?.userName}">User Name</strong> rated it <span th:text="${review.rating}">0</span>/5</p>
-        <p th:text="${review.comment}">Review Comment</p>
-        <hr>
+    <div class="card h-100 shadow-sm">
+        <div class="card-body">
+            <div th:each="review : ${reviews}">
+                <p>
+                    <strong th:text="${review.reviewer?.userName}">User Name</strong> rated it:
+                    <span th:text="${review.rating} + '/5'"></span>
+                    <span th:each="i : ${#numbers.sequence(1, 5)}"
+                          th:text="${i <= review.rating ? '★' : '☆'}"
+                          style="color: gold;"></span>
+                </p>
+                <p th:text="${review.comment}">Review Comment</p>
+                <hr>
+            </div>
+        </div>
     </div>
 
     <div th:if="${canReview}">
-        <h3>Add a Review</h3>
+        <br>
+        <div class="card">
+            <div class="card-header bg-danger text-white text-center">
+                <h2 th:text="${userReview != null ? 'Edit Your Review' : 'Add a Review'}">Review Form</h2>
+            </div>
+        </div>
+
+        <br>
         <form th:action="@{'/products/' + ${product.id} + '/review'}" method="post">
             <div class="mb-3">
-                <label for="rating" class="form-label">Rating</label>
+                <label for="rating" class="form-label"></label>
+
+                <h5><strong>Rating</strong></h5>
+
+                <div class="mb-2" style="font-size: 1.5rem; color: gold;">
+        <!-- <span th:each="i : ${#numbers.sequence(1,5)}"
+              th:text="${userReview != null and userReview.rating >= i ? '★' : '☆'}">☆</span> -->
+                </div>
+
                 <select id="rating" name="rating" class="form-select">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
+                    <option th:each="i : ${#numbers.sequence(1,5)}"
+                            th:value="${i}"
+                            th:text="${i}"
+                            th:selected="${userReview != null and userReview.rating == i}">1</option>
                 </select>
             </div>
             <div class="mb-3">
-                <label for="comment" class="form-label">Comment</label>
-                <textarea id="comment" name="comment" class="form-control" rows="3"></textarea>
+                <label for="comment" class="form-label"></label>
+
+                <h5><strong>Comment</strong></h5>
+
+                <textarea id="comment" name="comment" class="form-control" rows="3"
+                          th:text="${userReview != null ? userReview.comment : ''}"></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Submit Review</button>
+            <button type="submit" class="btn btn-primary"
+                    th:text="${userReview != null ? 'Update Review' : 'Submit Review'}">Submit Review</button>
         </form>
     </div>
+
+    <br>
     <div th:if="${!canReview}">
-        <p>You must purchase this product to leave a review.</p>
+        <p sec:authorize="hasAnyRole('USER')">You must purchase this product to leave a review.</p>
     </div>
 
     <a href="/products" class="btn btn-secondary mt-3">Back to Products</a>
 </div>
 
 </body>
+
+<!-- function updateStars(value) {
+const stars = document.getElementById('dynamicStars').children;
+for (let i = 0; i < 5; i++) {
+stars[i].textContent = i < value ? '★' : '☆';
+}
+}
+
+// On page load, initialize stars if userReview exists
+window.onload = function () {
+const selected = document.getElementById('rating').value;
+updateStars(selected);
+} -->
+
 </html>

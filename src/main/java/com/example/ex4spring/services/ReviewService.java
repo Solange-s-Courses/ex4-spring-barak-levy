@@ -24,4 +24,12 @@ public class ReviewService {
     public ReviewEntity save(ReviewEntity review) {
         return reviewRepository.save(review);
     }
+
+    public ReviewEntity findByReviewerIdAndProductId(long userId, Long productId) {
+        return reviewRepository.findByReviewerIdAndProductId(userId, productId);
+    }
+
+    public List<ReviewEntity> findAllByReviewerIdAndProductId(long userId, Long productId) {
+        return reviewRepository.findAllByReviewerIdAndProductId(userId, productId);
+    }
 }

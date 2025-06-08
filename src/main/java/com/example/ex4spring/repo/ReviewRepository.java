@@ -10,4 +10,8 @@ public interface ReviewRepository extends JpaRepository<ReviewEntity, Long> {
 
     @EntityGraph(attributePaths = {"product", "reviewer"})
     List<ReviewEntity> findByProductId(Long productId);
+
+    ReviewEntity findByReviewerIdAndProductId(long reviewerId, Long productId);
+
+    List<ReviewEntity >findAllByReviewerIdAndProductId(long reviewerId, Long productId);
 }

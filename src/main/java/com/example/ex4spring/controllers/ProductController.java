@@ -32,13 +32,15 @@ public class ProductController {
     }
 
     @GetMapping("/management")
-    public String showProductManagementPage() {
+    public String showProductManagementPage(Model model) {
+        model.addAttribute("isEdit", false);
         return "/products-management";
     }
 
     // Show product creation form
     @GetMapping("/add")
-    public String showCreateProductForm() {
+    public String showCreateProductForm(Model model) {
+        model.addAttribute("isEdit", false);
         return "create-product";
     }
 
@@ -84,7 +86,7 @@ public class ProductController {
 
         if (company == null) {
             model.addAttribute("error", "Only company users can create products.");
-            return "create-product";
+            return "products";
         }
 
         ProductEntity product = new ProductEntity();
@@ -97,7 +99,7 @@ public class ProductController {
 
         productService.save(product);
 
-        return "redirect:/products/my"; // redirect to list of the company's products
+        return "redirect:/products/my";
     }
 
     // List products of the logged-in company
@@ -137,27 +139,51 @@ public class ProductController {
         }
 
         List<ReviewEntity> reviews = reviewService.findByProductId(id);
-        model.addAttribute("product", product);
         model.addAttribute("reviews", reviews);
 
+        double averageRating = 0;
+        if (!reviews.isEmpty()) {
+            averageRating = reviews.stream()
+                    .mapToInt(ReviewEntity::getRating)
+                    .average()
+                    .orElse(0);
+        }
+        model.addAttribute("averageRating", averageRating);
+        model.addAttribute("product", product);
+
         boolean canReview = false;
+
+        // We are using a list in case for some reason there is more than 1 reviews from a user
+        // than there won't be a problem loading more than 1. There should be only 1 review for
+        // a product per user.
+        List<ReviewEntity> userReviews = null;
+
+        ReviewEntity userReview = null;
+
         if (principal != null) {
             UserEntity user = userService.findByEmail(principal.getName()).orElse(null);
             if (user != null) {
                 canReview = orderService.hasUserPurchasedProduct(user.getId(), id);
+                userReviews = reviewService.findAllByReviewerIdAndProductId(user.getId(), id);
+
+                if (userReviews != null && !userReviews.isEmpty()) {
+                    userReview = userReviews.get(0);
+                }
             }
         }
+
         model.addAttribute("canReview", canReview);
+        model.addAttribute("userReview", userReview);
 
         return "product-details";
     }
 
     @PostMapping("/{id}/review")
-    public String addReview(@PathVariable Long id,
-                            @RequestParam int rating,
-                            @RequestParam String comment,
-                            Principal principal,
-                            Model model) {
+    public String addOrEditReview(@PathVariable Long id,
+                                  @RequestParam int rating,
+                                  @RequestParam String comment,
+                                  Principal principal,
+                                  Model model) {
         if (principal == null) {
             model.addAttribute("error", "You must be logged in to add a review.");
             return "error";
@@ -180,14 +206,80 @@ public class ProductController {
             return "error";
         }
 
-        ReviewEntity review = new ReviewEntity();
-        review.setProduct(product);
-        review.setReviewer(user);
-        review.setRating(rating);
-        review.setComment(comment);
+        // Check if review already exists
+        List<ReviewEntity> userReviews = reviewService.findAllByReviewerIdAndProductId(user.getId(), id);
+
+        ReviewEntity review;
+        if (!userReviews.isEmpty()) {
+            // Edit existing review
+            review = userReviews.get(0);
+            review.setRating(rating);
+            review.setComment(comment);
+        } else {
+            // Create new review
+            review = new ReviewEntity();
+            review.setProduct(product);
+            review.setReviewer(user);
+            review.setRating(rating);
+            review.setComment(comment);
+        }
 
         reviewService.save(review);
-
         return "redirect:/products/" + id;
+    }
+
+    @GetMapping("/edit/{id}")
+    public String showEditProductForm(@PathVariable Long id, Principal principal, Model model) {
+        ProductEntity product = productService.findById(id).orElse(null);
+
+        if (product == null) {
+            model.addAttribute("error", "Product not found.");
+            return "error";
+        }
+
+        CompanyEntity company = companyService.findByEmail(principal.getName()).orElse(null);
+        if (company == null || product.getCompany().getId() != (company.getId())) {
+            model.addAttribute("error", "Unauthorized.");
+            return "error";
+        }
+
+        model.addAttribute("product", product);
+        model.addAttribute("isEdit", true);
+        return "products-management";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String updateProduct(@PathVariable Long id,
+                                @RequestParam String productName,
+                                @RequestParam Category category,
+                                @RequestParam double price,
+                                @RequestParam int quantity,
+                                @RequestParam String description,
+                                Principal principal,
+                                Model model) {
+
+        ProductEntity product = productService.findById(id).orElse(null);
+
+        if (product == null) {
+            model.addAttribute("error", "Product not found.");
+            return "error";
+        }
+
+        CompanyEntity company = companyService.findByEmail(principal.getName()).orElse(null);
+
+        if (company == null || product.getCompany().getId() != (company.getId())) {
+            model.addAttribute("error", "Unauthorized to update this product.");
+            return "error";
+        }
+
+        product.setName(productName);
+        product.setCategory(category);
+        product.setPrice(price);
+        product.setQuantity(quantity);
+        product.setDescription(description);
+
+        productService.save(product);
+
+        return "redirect:/products/my";
     }
 }
