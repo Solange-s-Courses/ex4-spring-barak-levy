@@ -31,8 +31,7 @@
     <br>
     <h5>Rating: <span th:text="${#numbers.formatDecimal(averageRating, 1, 1)}">0.0</span>
         <span th:each="i : ${#numbers.sequence(1, 5)}"
-              th:text="${i <= (averageRating >= 4.5 ?
-               T(java.lang.Math).ceil(averageRating) : T(java.lang.Math).floor(averageRating)) ? '★' : '☆'}"
+              th:text="${i <= (averageRating >= 4.5 ? T(java.lang.Math).ceil(averageRating) : T(java.lang.Math).floor(averageRating)) ? '★' : '☆'}"
               style="color: gold;"></span>
     </h5>
 
@@ -91,9 +90,8 @@
 
                 <h5><strong>Rating</strong></h5>
 
-                <div class="mb-2" style="font-size: 1.5rem; color: gold;">
-        <!-- <span th:each="i : ${#numbers.sequence(1,5)}"
-              th:text="${userReview != null and userReview.rating >= i ? '★' : '☆'}">☆</span> -->
+                <div id="dynamicStars" class="mb-2" style="font-size: 1.5rem; color: gold;">
+                    <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
                 </div>
 
                 <select id="rating" name="rating" class="form-select">
@@ -124,19 +122,24 @@
     <a href="/products" class="btn btn-secondary mt-3">Back to Products</a>
 </div>
 
+<script>
+    function updateStars(value) {
+        const stars = document.getElementById('dynamicStars').children;
+        for (let i = 0; i < 5; i++) {
+            stars[i].textContent = i < value ? '★' : '☆';
+        }
+    }
+
+    window.onload = function () {
+        const ratingSelect = document.getElementById('rating');
+        const selected = ratingSelect.value;
+        updateStars(selected);
+
+        ratingSelect.addEventListener('change', function () {
+            updateStars(this.value);
+        });
+    }
+</script>
+
 </body>
-
-<!-- function updateStars(value) {
-const stars = document.getElementById('dynamicStars').children;
-for (let i = 0; i < 5; i++) {
-stars[i].textContent = i < value ? '★' : '☆';
-}
-}
-
-// On page load, initialize stars if userReview exists
-window.onload = function () {
-const selected = document.getElementById('rating').value;
-updateStars(selected);
-} -->
-
 </html>
