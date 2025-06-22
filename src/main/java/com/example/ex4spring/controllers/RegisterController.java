@@ -50,12 +50,16 @@ public class RegisterController {
                                @RequestParam String userName,
                                @RequestParam String email,
                                @RequestParam String password,
+                               @RequestParam("confirm-password") String confirmPassword,
                                Map<String, Object> model) {
 
-        // Check email in all user types
+        if (!password.equals(confirmPassword)) {
+            model.put("error", "Passwords do not match");
+            return "/register";
+        }
+
         boolean emailExists =
                 userService.findByEmail(email).isPresent() ||
-                        // adminService.findByEmail(email).isPresent() ||
                         companyService.findByEmail(email).isPresent();
 
         if (emailExists) {
