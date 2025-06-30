@@ -55,17 +55,26 @@ public class AdminController {
     // View all the orders
     @GetMapping("/all-orders")
     public String viewOrders(Principal principal,
-                               @RequestParam(value = "message", required = false) String message,
-                               Model model) {
-        AdminEntity admin = adminService.findByEmail(principal.getName())
-                .orElse(null);
+                             @RequestParam(value = "message", required = false) String message,
+                             Model model) {
+
+        AdminEntity admin = adminService.findByEmail(principal.getName()).orElse(null);
 
         if (admin == null) {
             model.addAttribute("error", "Unauthorized access.");
             return "error";
         }
 
-        model.addAttribute("orders", orderService.findAll());
+        if (message != null && !message.isEmpty()) {
+            model.addAttribute("message", message);
+        }
+
+        List<OrderEntity> orders = new ArrayList<>();
+
+        orders = orderService.findAll();
+
+        model.addAttribute("orders", orders);
+
         return "orders";
     }
 }

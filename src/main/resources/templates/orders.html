@@ -35,9 +35,9 @@
                 <th>Total Price</th>
                 <th>Purchase Date</th>
 
-                <th sec:authorize="hasRole('USER')">Seller Company</th>
+                <th sec:authorize="hasAnyRole('USER', 'ADMIN')">Seller Company</th>
 
-                <th sec:authorize="hasRole('COMPANY')">Buyer</th>
+                <th sec:authorize="hasAnyRole('COMPANY', 'ADMIN')">Buyer</th>
             </tr>
             </thead>
             <tbody>
@@ -47,13 +47,14 @@
                 <td th:text="${order.totalPrice} + ' ₪'">Price</td>
                 <td th:text="${#temporals.format(order.purchaseDate, 'yyyy-MM-dd HH:mm')}">Date</td>
 
-                <td sec:authorize="hasRole('USER')"
+                <td sec:authorize="hasAnyRole('USER', 'ADMIN')"
                     th:text="${order.sellerCompany?.userName}">Company Name
                 </td>
 
-                <td sec:authorize="hasRole('COMPANY')"
+                <td sec:authorize="hasAnyRole('COMPANY', 'ADMIN')"
                         th:text="${order.buyer?.userName}">User Name
                 </td>
+
             </tr>
             </tbody>
         </table>
