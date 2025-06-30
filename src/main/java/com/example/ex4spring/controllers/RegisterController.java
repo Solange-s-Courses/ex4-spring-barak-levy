@@ -1,6 +1,7 @@
 package com.example.ex4spring.controllers;
 
 import com.example.ex4spring.model.*;
+import com.example.ex4spring.services.AdminService;
 import com.example.ex4spring.services.BaseUserService; // assuming this is the generic service
 import com.example.ex4spring.services.CompanyService;
 import com.example.ex4spring.services.UserService;
@@ -17,17 +18,17 @@ import java.util.Map;
 public class RegisterController {
 
     private final UserService userService;
-    // private final AdminService adminService;
+    private final AdminService adminService;
     private final CompanyService companyService;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public RegisterController(UserService userService,
-                             // AdminService adminService,
+                              AdminService adminService,
                               CompanyService companyService,
                               PasswordEncoder passwordEncoder) {
         this.userService = userService;
-       // this.adminService = adminService;
+        this.adminService = adminService;
         this.companyService = companyService;
         this.passwordEncoder = passwordEncoder;
     }
@@ -40,7 +41,7 @@ public class RegisterController {
     @GetMapping("/api/users/check-email")
     public ResponseEntity<Map<String, Boolean>> checkEmailExists(@RequestParam String email) {
         boolean exists = userService.findByEmail(email).isPresent() ||
-                // adminService.findByEmail(email).isPresent() ||
+                adminService.findByEmail(email).isPresent() ||
                 companyService.findByEmail(email).isPresent();
         return ResponseEntity.ok(Collections.singletonMap("exists", exists));
     }
@@ -73,7 +74,7 @@ public class RegisterController {
             case "ADMIN":
                 AdminEntity admin = new AdminEntity(userName, email, encodedPassword);
                 admin.setRole(UserRole.ADMIN);
-                // adminService.save(admin);
+                adminService.save(admin);
                 break;
 
             case "COMPANY":

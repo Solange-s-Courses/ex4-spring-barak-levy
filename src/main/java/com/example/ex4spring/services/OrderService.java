@@ -30,6 +30,10 @@ public class OrderService {
         this.userRepository = userRepository;
     }
 
+    public List<OrderEntity> findAll() {
+        return orderRepository.findAll();
+    }
+
     public void save(OrderEntity order) {
         orderRepository.save(order);
     }

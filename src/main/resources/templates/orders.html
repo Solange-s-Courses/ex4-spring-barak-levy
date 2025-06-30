@@ -16,7 +16,8 @@
 
     <div class="card">
         <div class="card-header bg-success text-white text-center">
-            <h1>My Orders</h1>
+            <h1 sec:authorize="hasAnyRole('USER', 'COMPANY')">My Orders</h1>
+            <h1 sec:authorize="hasRole('ADMIN')">All Orders</h1>
         </div>
     </div>
 

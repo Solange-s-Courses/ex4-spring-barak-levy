@@ -31,7 +31,7 @@
     <br>
     <h5>Rating: <span th:text="${#numbers.formatDecimal(averageRating, 1, 1)}">0.0</span>
         <span th:each="i : ${#numbers.sequence(1, 5)}"
-              th:text="${i <= (averageRating >= 4.5 ? T(java.lang.Math).ceil(averageRating) : T(java.lang.Math).floor(averageRating)) ? '★' : '☆'}"
+              th:text="${i <= (averageRating - i + 1 >= 0.5 ? T(java.lang.Math).ceil(averageRating) : T(java.lang.Math).floor(averageRating)) ? '★' : '☆'}"
               style="color: gold;"></span>
     </h5>
 

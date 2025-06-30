@@ -18,16 +18,18 @@ public class ProductController {
     private final ReviewService reviewService;
     private final CompanyService companyService;
     private final UserService userService;
+    private final AdminService adminService;
     private final OrderService orderService;
 
     @Autowired
     public ProductController(ProductService productService, CompanyService companyService,
                              ReviewService reviewService, UserService userService,
-                             OrderService orderService) {
+                             AdminService adminService, OrderService orderService) {
         this.productService = productService;
         this.companyService = companyService;
         this.reviewService = reviewService;
         this.userService = userService;
+        this.adminService = adminService;
         this.orderService = orderService;
     }
 
@@ -99,11 +101,11 @@ public class ProductController {
 
         productService.save(product);
 
-        return "redirect:/products/my";
+        return "redirect:/products/my-products";
     }
 
     // List products of the logged-in company
-    @GetMapping("/my")
+    @GetMapping("/my-products")
     public String listCompanyProducts(Principal principal, Model model) {
         CompanyEntity company = companyService.findByEmail(principal.getName())
                 .orElse(null);
@@ -122,12 +124,21 @@ public class ProductController {
     @PostMapping("/delete/{id}")
     public String deleteProductById(@PathVariable Long id, Principal principal) {
         ProductEntity product = productService.findById(id).orElseThrow();
+        String email = principal.getName();
 
-        // if (product.getCompany().getEmail().equals(principal.getName())) {
+        boolean isCompanyOwner = product.getCompany().getEmail().equals(email);
+        boolean isAdmin = adminService.findByEmail(email).isPresent();
+
+        if (isCompanyOwner || isAdmin) {
             productService.softDeleteById(id);
-        // }
+        }
 
-        return "redirect:/products/my";
+        // Redirect based on who deleted:
+        if (isAdmin) {
+            return "redirect:/admin/products-management";
+        } else {
+            return "redirect:/products/my-products";
+        }
     }
 
     @GetMapping("/product-page/{id}")
@@ -286,6 +297,6 @@ public class ProductController {
 
         productService.save(product);
 
-        return "redirect:/products/my";
+        return "redirect:/products/my-products";
     }
 }

@@ -15,11 +15,17 @@
         <div class="d-flex gap-2 mb-4 align-items-center">
             <a th:href="@{/products}" class="btn btn-primary">Products</a>
 
-            <a sec:authorize="hasRole('COMPANY')" th:href="@{/products/my}"
+            <a sec:authorize="hasRole('COMPANY')" th:href="@{/products/my-products}"
                class="btn btn-primary">My Products</a>
+
+            <a sec:authorize="hasRole('ADMIN')" th:href="@{/admin/products-management}"
+               class="btn btn-primary">Products Management</a>
 
             <a sec:authorize="hasAnyRole('USER', 'COMPANY')"
                th:href="@{/orders/my-orders}" class="btn btn-primary">Orders</a>
+
+            <a sec:authorize="hasAnyRole('ADMIN')"
+               th:href="@{/admin/all-orders}" class="btn btn-primary">Orders</a>
 
             <a th:href="@{/profile}" class="btn btn-primary">Profile</a>
 
