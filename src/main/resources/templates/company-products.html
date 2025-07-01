@@ -20,7 +20,7 @@
     </div>
 
     <br>
-    <div class="mb-3">
+    <div sec:authorize="hasRole('COMPANY')" class="mb-3">
         <a th:href="@{/products/management}" class="btn btn-success">Add New Product</a>
     </div>
 
@@ -52,7 +52,6 @@
                     Delete
                 </button>
 
-                <!-- Delete Modal for this product -->
                 <div class="modal fade"
                      th:id="'deleteModal_' + ${product.id}"
                      tabindex="-1"

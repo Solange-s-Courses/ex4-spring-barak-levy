@@ -77,4 +77,19 @@ public class AdminController {
 
         return "orders";
     }
+
+    // List of users
+    @GetMapping("/users-management")
+    public String listUsers(Principal principal, Model model) {
+        AdminEntity admin = adminService.findByEmail(principal.getName())
+                .orElse(null);
+
+        if (admin == null) {
+            model.addAttribute("error", "Unauthorized access.");
+            return "error";
+        }
+
+        model.addAttribute("users", userService.findAll());
+        return "users-management";
+    }
 }

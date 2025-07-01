@@ -27,6 +27,9 @@
             <a sec:authorize="hasAnyRole('ADMIN')"
                th:href="@{/admin/all-orders}" class="btn btn-primary">Orders</a>
 
+            <a sec:authorize="hasAnyRole('ADMIN')"
+               th:href="@{/admin/users-management}" class="btn btn-primary">Users Management</a>
+
             <a th:href="@{/profile}" class="btn btn-primary">Profile</a>
 
             <div class="ms-auto">
