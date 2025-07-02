@@ -79,6 +79,7 @@ public class ProductController {
                                 @RequestParam double price,
                                 @RequestParam int quantity,
                                 @RequestParam String description,
+                                @RequestParam String imageUrl,
                                 Principal principal,
                                 Model model) {
 
@@ -98,6 +99,7 @@ public class ProductController {
         product.setQuantity(quantity);
         product.setDescription(description);
         product.setCompany(company);
+        product.setImageUrl(imageUrl);
 
         productService.save(product);
 
@@ -272,6 +274,7 @@ public class ProductController {
                                 @RequestParam double price,
                                 @RequestParam int quantity,
                                 @RequestParam String description,
+                                @RequestParam String imageUrl,
                                 Principal principal,
                                 Model model) {
 
@@ -294,6 +297,7 @@ public class ProductController {
         product.setPrice(price);
         product.setQuantity(quantity);
         product.setDescription(description);
+        product.setImageUrl(imageUrl);
 
         productService.save(product);
 

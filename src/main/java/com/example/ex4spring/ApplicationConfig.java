@@ -55,7 +55,7 @@ public class ApplicationConfig {
                 .authorizeHttpRequests((requests) -> requests
                                 .requestMatchers("/css/**", "/", "/403", "/errorpage", "/simulateError",
                                         "/register", "/login").permitAll()
-                                .requestMatchers("/admin/**", "/api/users/**").hasRole("ADMIN") // the ** represents any subpath
+                                .requestMatchers("/admin/**", "/api/users/**", "/api/**").hasRole("ADMIN") // the ** represents any subpath
                                 .requestMatchers("/user/**", "/orders/confirm", "/orders/buy").hasRole("USER")
                                 .requestMatchers("/products/management", "/products/add", "/products/my-products",
                                         "/products/edit/**").hasRole("COMPANY")

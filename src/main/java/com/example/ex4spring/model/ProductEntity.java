@@ -15,6 +15,7 @@ public class ProductEntity {
     private double price;
     private int quantity;
     private String description;
+    private String imageUrl;
 
     @Column(name = "is_deleted")
     private boolean isDeleted = false;
@@ -99,6 +100,10 @@ public class ProductEntity {
     public void setOwner(UserEntity owner) {
         this.owner = owner;
     }
+
+    public String getImageUrl() {return imageUrl;}
+
+    public void setImageUrl(String imageUrl) {this.imageUrl = imageUrl;}
 
     public List<ReviewEntity> getReviews() {
         return reviews;

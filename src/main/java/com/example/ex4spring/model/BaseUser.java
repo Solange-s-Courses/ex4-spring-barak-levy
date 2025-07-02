@@ -27,12 +27,16 @@ public abstract class BaseUser {
     @NotBlank(message = "Password is mandatory")
     private String password;
 
+    @Column(name = "access_locked")
+    private boolean accessLocked = false;
+
     public BaseUser() {}
 
     public BaseUser(String userName, String email, String password) {
         this.userName = userName;
         this.email = email;
         this.password = password;
+        this.accessLocked = false;
     }
 
     public long getId() {
@@ -73,6 +77,14 @@ public abstract class BaseUser {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isAccessLocked() {
+        return accessLocked;
+    }
+
+    public void setAccessLocked(boolean accessLocked) {
+        this.accessLocked = accessLocked;
     }
 
     @Override

@@ -33,7 +33,6 @@
                     </h5>
                 </div>
 
-                <!-- Hidden inputs for form submission -->
                 <input type="hidden" name="productId" th:value="${product.id}" />
                 <input type="hidden" name="quantity" id="hiddenQuantity" value="1" />
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />

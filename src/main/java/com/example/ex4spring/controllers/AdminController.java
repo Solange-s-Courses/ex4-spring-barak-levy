@@ -78,7 +78,7 @@ public class AdminController {
         return "orders";
     }
 
-    // List of users
+    // List of all the users
     @GetMapping("/users-management")
     public String listUsers(Principal principal, Model model) {
         AdminEntity admin = adminService.findByEmail(principal.getName())
@@ -89,7 +89,11 @@ public class AdminController {
             return "error";
         }
 
-        model.addAttribute("users", userService.findAll());
+        List<BaseUser> allUsers = new ArrayList<>();
+        allUsers.addAll(userService.findAll());
+        allUsers.addAll(companyService.findAll());
+
+        model.addAttribute("users", allUsers);
         return "users-management";
     }
 }

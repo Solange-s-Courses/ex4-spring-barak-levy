@@ -51,6 +51,12 @@
                        th:value="${product?.description}" required>
             </div>
 
+            <div class="mb-3">
+                <label for="imageUrl" class="form-label">Image Url</label>
+                <input type="text" class="form-control" id="imageUrl" name="description"
+                       th:value="${product?.imageUrl}">
+            </div>
+
             <div class="d-grid">
                 <button type="submit" class="btn btn-primary" th:text="${isEdit} ? 'Update Product' : 'Create Product'">Submit</button>
             </div>

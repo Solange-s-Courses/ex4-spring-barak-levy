@@ -70,7 +70,8 @@ public class RegisterController {
 
         boolean emailExists =
                 userService.findByEmail(email).isPresent() ||
-                        companyService.findByEmail(email).isPresent();
+                        companyService.findByEmail(email).isPresent() ||
+                        adminService.findByEmail(email).isPresent();
 
         if (emailExists) {
             model.put("error", "Email is already in use");
