@@ -83,7 +83,6 @@ public class ProductController {
                                 Principal principal,
                                 Model model) {
 
-        // Find the company based on their email
         CompanyEntity company = companyService.findByEmail(principal.getName())
                 .orElse(null);
 

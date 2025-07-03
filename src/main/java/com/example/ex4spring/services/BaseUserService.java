@@ -33,4 +33,11 @@ public abstract class BaseUserService<T extends BaseUser, R extends BaseUserRepo
     public Optional<T> findByEmail(String email) {
         return repository.findByEmail(email);
     }
+
+    public void toggleAccess(Long id, boolean accessLocked) {
+        T user = repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("User with ID " + id + " not found."));
+        user.setAccessLocked(accessLocked);
+        repository.save(user);
+    }
 }

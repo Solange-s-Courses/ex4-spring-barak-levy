@@ -35,4 +35,11 @@ public class BaseUserService2 {
     public void deleteById(Long id) {
         baseUserRepository.deleteById(id);
     }
+
+    public void toggleAccess(Long id, boolean accessLocked) {
+        BaseUser user = baseUserRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("User with ID " + id + " not found."));
+        user.setAccessLocked(accessLocked);
+        baseUserRepository.save(user);
+    }
 }

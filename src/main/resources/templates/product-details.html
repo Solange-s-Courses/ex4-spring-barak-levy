@@ -19,6 +19,9 @@
         </div>
     </div>
 
+    <img th:src="${product.imageUrl}" class="card-img-top" alt="Product Image"
+         style="object-fit: contain; height: 200px; width: 100%; background-color: #f8f9fa;">
+
     <br>
     <h5>Category: <span th:text="${product.category}"></span></h5>
 

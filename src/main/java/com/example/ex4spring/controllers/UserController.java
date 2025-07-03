@@ -3,8 +3,10 @@ package com.example.ex4spring.controllers;
 import com.example.ex4spring.model.BaseUser;
 import com.example.ex4spring.services.BaseUserService;
 import com.example.ex4spring.services.BaseUserService2;
+import com.example.ex4spring.services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
@@ -54,14 +56,8 @@ public class UserController {
 
         BaseUser existingUser = userOpt.get();
 
-        if (updatedUser.getEmail() != null) {
-            existingUser.setEmail(updatedUser.getEmail());
-        }
-
-        if (updatedUser.getPassword() != null) {
-            existingUser.setPassword(updatedUser.getPassword());
-        }
-
+        existingUser.setEmail(updatedUser.getEmail());
+        existingUser.setPassword(updatedUser.getPassword());
         existingUser.setAccessLocked(updatedUser.isAccessLocked());
 
         baseUserService.save(existingUser);

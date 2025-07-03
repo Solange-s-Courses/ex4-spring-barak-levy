@@ -5,10 +5,8 @@ import com.example.ex4spring.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -20,20 +18,20 @@ public class AdminController {
 
     private final AdminService adminService;
     private final ProductService productService;
-    private final ReviewService reviewService;
     private final CompanyService companyService;
     private final UserService userService;
+    private final BaseUserService2 baseUserService;
     private final OrderService orderService;
 
     @Autowired
     public AdminController(AdminService adminService, ProductService productService, CompanyService companyService,
-                             ReviewService reviewService, UserService userService,
+                             UserService userService, BaseUserService2 baseUserService,
                              OrderService orderService) {
         this.adminService = adminService;
         this.productService = productService;
         this.companyService = companyService;
-        this.reviewService = reviewService;
         this.userService = userService;
+        this.baseUserService = baseUserService;
         this.orderService = orderService;
     }
 
@@ -95,5 +93,18 @@ public class AdminController {
 
         model.addAttribute("users", allUsers);
         return "users-management";
+    }
+
+    @PostMapping("/toggle-user-access/{id}")
+    public String toggleAccess(@PathVariable Long id,
+                               @RequestParam boolean accessLocked,
+                               RedirectAttributes redirectAttributes) {
+        try {
+            baseUserService.toggleAccess(id, accessLocked);
+            return "redirect:/admin/users-management";
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Failed to update user access.");
+            return "redirect:/admin/users-management";
+        }
     }
 }
