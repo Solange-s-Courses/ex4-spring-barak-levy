@@ -2,42 +2,43 @@ package com.example.ex4spring.services;
 
 import com.example.ex4spring.model.BaseUser;
 import com.example.ex4spring.repo.BaseUserRepository;
-
+import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class BaseUserService<T extends BaseUser, R extends BaseUserRepository<T>> {
+@Service
+public class BaseUserService {
 
-    protected final R repository;
+    private final BaseUserRepository baseUserRepository;
 
-    public BaseUserService(R repository) {
-        this.repository = repository;
+    public BaseUserService(BaseUserRepository baseUserRepository) {
+        this.baseUserRepository = baseUserRepository;
     }
 
-    public T save(T user) {
-        return repository.save(user);
+    public List<BaseUser> findAll() {
+        return baseUserRepository.findAll();
     }
 
-    public Optional<T> findById(Long id) {
-        return repository.findById(id);
+    public Optional<BaseUser> findById(Long id) {
+        return baseUserRepository.findById(id);
     }
 
-    public List<T> findAll() {
-        return repository.findAll();
+    public Optional<BaseUser> findByEmail(String email) {
+        return baseUserRepository.findByEmail(email);
+    }
+
+    public BaseUser save(BaseUser user) {
+        return baseUserRepository.save(user);
     }
 
     public void deleteById(Long id) {
-        repository.deleteById(id);
-    }
-
-    public Optional<T> findByEmail(String email) {
-        return repository.findByEmail(email);
+        baseUserRepository.deleteById(id);
     }
 
     public void toggleAccess(Long id, boolean accessLocked) {
-        T user = repository.findById(id)
+        BaseUser user = baseUserRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("User with ID " + id + " not found."));
         user.setAccessLocked(accessLocked);
-        repository.save(user);
+        baseUserRepository.save(user);
     }
 }

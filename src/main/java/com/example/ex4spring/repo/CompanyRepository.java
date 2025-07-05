@@ -4,6 +4,6 @@ import com.example.ex4spring.model.CompanyEntity;
 
 import java.util.Optional;
 
-public interface CompanyRepository extends BaseUserRepository<CompanyEntity> {
+public interface CompanyRepository extends BaseUserRepositoryTemplate<CompanyEntity> {
     Optional<CompanyEntity> findByEmail(String email);
 }

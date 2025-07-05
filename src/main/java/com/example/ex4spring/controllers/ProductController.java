@@ -65,7 +65,7 @@ public class ProductController {
         }
 
         model.addAttribute("products", products);
-        model.addAttribute("categories", List.of(Category.values())); // if using enum
+        model.addAttribute("categories", List.of(Category.values()));
         model.addAttribute("selectedCategory", category);
         model.addAttribute("searchName", name);
 
@@ -302,4 +302,18 @@ public class ProductController {
 
         return "redirect:/products/my-products";
     }
+
+    /* @GetMapping("")
+    public String getFilteredProducts(@RequestParam(required = false) String category,
+                                      @RequestParam(required = false) String name,
+                                      Model model) {
+        List<ProductEntity> products = productService.getFilteredProducts(category, name);
+        model.addAttribute("products", products);
+
+        model.addAttribute("categories", Category.values());
+        model.addAttribute("selectedCategory", category);
+        model.addAttribute("searchName", name);
+
+        return "products";
+    } */
 }

@@ -22,6 +22,8 @@
                               th:attr="data-price=${product.price}">0.00</span>
                     </p>
 
+                    <p>Available Quantity: <span id="availableQuantity" th:text="${product.quantity}">0</span></p>
+
                     <div class="d-flex justify-content-center align-items-center gap-2 mb-3">
                         <label for="quantityInput" class="form-label mb-0">Quantity:</label>
                         <input type="number" id="quantityInput" class="form-control text-center"
@@ -52,17 +54,32 @@
         const unitPriceElement = document.getElementById("unitPrice");
         const totalPriceElement = document.getElementById("totalPrice");
         const hiddenQuantityInput = document.getElementById("hiddenQuantity");
+        const availableQuantityElement = document.getElementById("availableQuantity");
+        const availableQuantity = parseInt(availableQuantityElement.textContent);
 
         const pricePerUnit = parseFloat(unitPriceElement.dataset.price);
 
         function updateTotal() {
-            const quantity = Math.max(1, parseInt(quantityInput.value) || 1);
+            let quantity = Math.max(1, parseInt(quantityInput.value) || 1);
+            if (quantity > availableQuantity) {
+                quantity = availableQuantity;
+                quantityInput.value = availableQuantity;
+            }
             const total = (pricePerUnit * quantity).toFixed(2);
             totalPriceElement.textContent = total;
             hiddenQuantityInput.value = quantity;
         }
 
         quantityInput.addEventListener("input", updateTotal);
+
+        const form = document.getElementById("purchaseForm");
+        form.addEventListener("submit", (e) => {
+            const quantity = parseInt(quantityInput.value);
+            if (quantity > availableQuantity) {
+                e.preventDefault();
+                alert(`Cannot buy more than ${availableQuantity} units. Please reduce the quantity.`);
+            }
+        });
 
         updateTotal();
     });

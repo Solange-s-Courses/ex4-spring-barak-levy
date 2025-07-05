@@ -1,7 +1,7 @@
 package com.example.ex4spring.services;
 
 import com.example.ex4spring.model.BaseUser;
-import com.example.ex4spring.repo.BaseUserRepository2;
+import com.example.ex4spring.repo.BaseUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,7 +16,7 @@ import java.util.List;
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private BaseUserRepository2 userRepository;
+    private BaseUserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -24,7 +24,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("Email not found"));
 
         if (user.isAccessLocked()) {
-            throw new LockedException("This user access is locked");
+            throw new LockedException("User access is locked");
         }
 
         return new org.springframework.security.core.userdetails.User(

@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class UserService extends BaseUserService<UserEntity, UserRepository> {
+public class UserService extends BaseUserServiceTemplate<UserEntity, UserRepository> {
 
     @Autowired
     public UserService(UserRepository userRepository) {

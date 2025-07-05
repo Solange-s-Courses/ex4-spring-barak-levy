@@ -55,4 +55,28 @@ public class ProductService {
     public List<ProductEntity> findByCategoryAndName(Category category, String name) {
         return productRepository.findByCategoryAndNameContainingIgnoreCaseAndIsDeletedFalse(category, name);
     }
+
+    public List<ProductEntity> getFilteredProducts(String categoryStr, String name) {
+        boolean hasCategory = categoryStr != null && !categoryStr.isBlank();
+        boolean hasName = name != null && !name.isBlank();
+
+        if (!hasCategory && !hasName) {
+            return productRepository.findByIsDeletedFalse();
+        }
+
+        if (hasCategory) {
+            try {
+                Category category = Category.valueOf(categoryStr.toUpperCase());
+                if (hasName) {
+                    return productRepository.findByCategoryAndNameContainingIgnoreCaseAndIsDeletedFalse(category, name);
+                } else {
+                    return productRepository.findByCategoryAndIsDeletedFalse(category);
+                }
+            } catch (IllegalArgumentException e) {
+                return List.of();
+            }
+        } else {
+            return productRepository.findByNameContainingIgnoreCaseAndIsDeletedFalse(name);
+        }
+    }
 }

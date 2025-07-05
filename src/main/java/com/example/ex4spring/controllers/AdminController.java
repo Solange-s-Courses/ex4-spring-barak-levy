@@ -20,12 +20,12 @@ public class AdminController {
     private final ProductService productService;
     private final CompanyService companyService;
     private final UserService userService;
-    private final BaseUserService2 baseUserService;
+    private final BaseUserService baseUserService;
     private final OrderService orderService;
 
     @Autowired
     public AdminController(AdminService adminService, ProductService productService, CompanyService companyService,
-                             UserService userService, BaseUserService2 baseUserService,
+                             UserService userService, BaseUserService baseUserService,
                              OrderService orderService) {
         this.adminService = adminService;
         this.productService = productService;

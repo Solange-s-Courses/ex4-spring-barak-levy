@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class AdminService extends BaseUserService<AdminEntity, AdminRepository> {
+public class AdminService extends BaseUserServiceTemplate<AdminEntity, AdminRepository> {
 
     private final AdminRepository adminRepository;
 

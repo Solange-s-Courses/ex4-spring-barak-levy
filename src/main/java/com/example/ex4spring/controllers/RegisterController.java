@@ -2,7 +2,6 @@ package com.example.ex4spring.controllers;
 
 import com.example.ex4spring.model.*;
 import com.example.ex4spring.services.AdminService;
-import com.example.ex4spring.services.BaseUserService; // assuming this is the generic service
 import com.example.ex4spring.services.CompanyService;
 import com.example.ex4spring.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

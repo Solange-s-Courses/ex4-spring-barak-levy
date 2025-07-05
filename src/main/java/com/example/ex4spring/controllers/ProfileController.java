@@ -1,7 +1,7 @@
 package com.example.ex4spring.controllers;
 
 import com.example.ex4spring.model.BaseUser;
-import com.example.ex4spring.services.BaseUserService2;
+import com.example.ex4spring.services.BaseUserService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -13,9 +13,9 @@ import java.util.Optional;
 @Controller
 public class ProfileController {
 
-    private final BaseUserService2 userService;
+    private final BaseUserService userService;
 
-    public ProfileController(BaseUserService2 userService) {
+    public ProfileController(BaseUserService userService) {
         this.userService = userService;
     }
 

@@ -23,20 +23,20 @@ public class OrderController {
     private final ProductService productService;
     private final UserService userService;
 
-    private final BaseUserService2 baseUserService;
+    private final BaseUserService baseUserService;
 
     @Autowired
     public OrderController(OrderService orderService,
                            ProductService productService,
                            UserService userService,
-                           BaseUserService2 baseUserService) {
+                           BaseUserService baseUserService) {
         this.orderService = orderService;
         this.productService = productService;
         this.userService = userService;
         this.baseUserService = baseUserService;
     }
 
-    // Step 1: Show confirmation page (after user clicks "Buy Now")
+    // Show confirmation page for a product after user clicks "Buy Now"
     @PostMapping("/confirm")
     public String confirmPurchase(@RequestParam Long productId,
                                   @RequestParam int quantity,
@@ -44,10 +44,8 @@ public class OrderController {
                                   Model model) {
         ProductEntity product = productService.findById(productId).orElse(null);
         if (product == null || product.getQuantity() < quantity) {
-            // model.addAttribute("error", "Invalid product or insufficient stock.");
             redirectAttributes.addFlashAttribute("error", "Not enough stock for this product.");
             return "redirect:/products/product-page/" + productId;
-            // return "error";
         }
 
         model.addAttribute("product", product);
@@ -56,7 +54,7 @@ public class OrderController {
         return "confirm-buy";
     }
 
-    // Step 2: Actually place the order after confirmation
+    // Place the order after confirmation
     @PostMapping("/buy")
     @Transactional
     public String placeOrder(@RequestParam Long productId,
@@ -68,7 +66,6 @@ public class OrderController {
         if (product == null || product.getQuantity() < quantity) {
             model.addAttribute("error", "Not enough stock or product doesn't exist.");
             return "redirect:/products/product-page/" + productId;
-            // return "error";
         }
 
         UserEntity buyer = userService.findByEmail(principal.getName()).orElse(null);
@@ -122,20 +119,4 @@ public class OrderController {
         model.addAttribute("orders", orders);
         return "orders";
     }
-
-    // View all orders for a company (seller)
-    /* @GetMapping("/company")
-    public String viewCompanyOrders(Principal principal, Model model) {
-        var companyOpt = productService.getCompanyByEmail(principal.getName()); // You can inject CompanyService instead
-        if (companyOpt.isEmpty()) {
-            model.addAttribute("error", "Company not found.");
-            return "error";
-        }
-
-        var company = companyOpt.get();
-        List<OrderEntity> orders = orderService.findBySellerCompanyId(company.getId());
-
-        model.addAttribute("orders", orders);
-        return "company-orders"; // Create this HTML view
-    } */
 }
