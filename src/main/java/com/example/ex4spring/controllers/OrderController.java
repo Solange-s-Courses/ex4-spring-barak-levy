@@ -16,6 +16,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Controller for handling order-related operations such as confirming purchases,
+ * placing orders, viewing order history, and buying items from the cart.
+ */
 @Controller
 @RequestMapping("/orders")
 public class OrderController {
@@ -26,6 +30,9 @@ public class OrderController {
 
     private final BaseUserService baseUserService;
 
+    /**
+     * Constructor for injecting necessary services.
+     */
     @Autowired
     public OrderController(OrderService orderService,
                            ProductService productService,
@@ -37,7 +44,15 @@ public class OrderController {
         this.baseUserService = baseUserService;
     }
 
-    // Show confirmation page for a product after user clicks "Buy Now"
+    /**
+     * Displays a confirmation page for a single product purchase initiated by the "Buy Now" button.
+     *
+     * @param productId ID of the product to buy.
+     * @param quantity Quantity of the product.
+     * @param redirectAttributes Redirect attributes for passing error messages.
+     * @param model Model for sending product data to the view.
+     * @return View name for confirmation page or redirect on error.
+     */
     @PostMapping("/confirm")
     public String confirmPurchase(@RequestParam Long productId,
                                   @RequestParam int quantity,
@@ -55,7 +70,16 @@ public class OrderController {
         return "confirm-buy";
     }
 
-    // Place the order after confirmation
+    /**
+     * Handles the placement of the order after confirmation.
+     *
+     * @param productId ID of the product to buy.
+     * @param quantity Quantity to purchase.
+     * @param redirectAttributes Redirect attributes for success or failure messages.
+     * @param principal Represents the authenticated user.
+     * @param model Model for error messages.
+     * @return Redirects to user's order list or product page on error.
+     */
     @PostMapping("/buy")
     @Transactional
     public String placeOrder(@RequestParam Long productId,
@@ -94,7 +118,14 @@ public class OrderController {
         return "redirect:/orders/my-orders";
     }
 
-    // View user's orders
+    /**
+     * Displays the list of orders for the currently logged-in user.
+     *
+     * @param principal Authenticated user's identity.
+     * @param message Optional message from previous actions.
+     * @param model Model to hold order list and messages.
+     * @return View name for the orders list.
+     */
     @GetMapping("/my-orders")
     public String viewMyOrders(Principal principal,
                                @RequestParam(value = "message", required = false) String message,
@@ -121,6 +152,15 @@ public class OrderController {
         return "orders";
     }
 
+    /**
+     * Processes the purchase of all items in the shopping cart.
+     *
+     * @param principal Authenticated user placing the order.
+     * @param session HTTP session containing the cart.
+     * @param redirectAttributes Redirect attributes to show success/failure.
+     * @param model Model for error handling.
+     * @return Redirect to order list or cart page depending on outcome.
+     */
     @PostMapping("/buy-from-cart")
     @Transactional
     public String confirmCartPurchase(Principal principal,
@@ -138,7 +178,7 @@ public class OrderController {
         List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
         if (cart == null || cart.isEmpty()) {
             redirectAttributes.addFlashAttribute("error", "Your cart is empty.");
-            return "redirect:/cart/view"; // or wherever your cart page is
+            return "redirect:/cart/view";
         }
 
         List<String> failedItems = new ArrayList<>();

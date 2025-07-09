@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.List;
 
+/**
+ * Controller responsible for handling all product related requests.
+ */
 @Controller
 @RequestMapping("/products")
 public class ProductController {
@@ -21,6 +24,16 @@ public class ProductController {
     private final AdminService adminService;
     private final OrderService orderService;
 
+    /**
+     * Constructor-based dependency injection for required services.
+     *
+     * @param productService the product service
+     * @param companyService the company service
+     * @param reviewService the review service
+     * @param userService the user service
+     * @param adminService the admin service
+     * @param orderService the order service
+     */
     @Autowired
     public ProductController(ProductService productService, CompanyService companyService,
                              ReviewService reviewService, UserService userService,
@@ -33,19 +46,38 @@ public class ProductController {
         this.orderService = orderService;
     }
 
+    /**
+     * Displays the product management page for companies/admins.
+     *
+     * @param model the model for view attributes
+     * @return the product management view
+     */
     @GetMapping("/management")
     public String showProductManagementPage(Model model) {
         model.addAttribute("isEdit", false);
         return "/products-management";
     }
 
-    // Show product creation form
+    /**
+     * Shows the form for creating a new product.
+     *
+     * @param model the model for view attributes
+     * @return the create product view
+     */
     @GetMapping("/add")
     public String showCreateProductForm(Model model) {
         model.addAttribute("isEdit", false);
         return "create-product";
     }
 
+    /**
+     * Displays a list of products optionally filtered by category and name.
+     *
+     * @param category optional product category to filter
+     * @param name optional product name (or partial) to filter
+     * @param model the model for view attributes
+     * @return the products catalog view
+     */
     @GetMapping("")
     public String showProductsPage(
             @RequestParam(required = false) Category category,
@@ -72,7 +104,19 @@ public class ProductController {
         return "products";
     }
 
-    // Handle product creation
+    /**
+     * Handles creation of a new product by a company user.
+     *
+     * @param productName name of the new product
+     * @param category category of the new product
+     * @param price price of the new product
+     * @param quantity available quantity of the product
+     * @param description description of the product
+     * @param imageUrl URL for the product image
+     * @param principal security principal representing the logged-in user
+     * @param model the model for view attributes
+     * @return redirection to the logged-in company's product list on success, or error view otherwise
+     */
     @PostMapping("/add")
     public String createProduct(@RequestParam String productName,
                                 @RequestParam Category category,
@@ -105,7 +149,13 @@ public class ProductController {
         return "redirect:/products/my-products";
     }
 
-    // List products of the logged-in company
+    /**
+     * Lists all products belonging to the currently logged-in company.
+     *
+     * @param principal security principal representing the logged-in user
+     * @param model the model for view attributes
+     * @return the view showing the company's products or error view if unauthorized
+     */
     @GetMapping("/my-products")
     public String listCompanyProducts(Principal principal, Model model) {
         CompanyEntity company = companyService.findByEmail(principal.getName())
@@ -122,6 +172,13 @@ public class ProductController {
         return "company-products"; // The page that shows the products list
     }
 
+    /**
+     * Soft deletes a product by its ID, authorized for the owning company or an admin.
+     *
+     * @param id product ID to delete
+     * @param principal security principal representing the logged-in user
+     * @return redirection to appropriate management page after deletion
+     */
     @PostMapping("/delete/{id}")
     public String deleteProductById(@PathVariable Long id, Principal principal) {
         ProductEntity product = productService.findById(id).orElseThrow();
@@ -142,6 +199,15 @@ public class ProductController {
         }
     }
 
+    /**
+     * Displays the detailed product page including reviews, average rating, and review submission ability.
+     *
+     * @param id product ID
+     * @param error optional error message to display
+     * @param principal security principal representing the logged-in user (nullable)
+     * @param model the model for view attributes
+     * @return the detailed product view or error view if product not found
+     */
     @GetMapping("/product-page/{id}")
     public String viewProduct(@PathVariable Long id,
                               @RequestParam(value = "error", required = false) String error,
@@ -196,6 +262,16 @@ public class ProductController {
         return "product-details";
     }
 
+    /**
+     * Adds a new review or edits an existing review for a product by the logged-in user.
+     *
+     * @param id product ID being reviewed
+     * @param rating numeric rating given by the user
+     * @param comment textual comment given by the user
+     * @param principal security principal representing the logged-in user
+     * @param model the model for view attributes
+     * @return redirection back to the product details page on success, or error view on failure
+     */
     @PostMapping("/product-page/{id}/review")
     public String addOrEditReview(@PathVariable Long id,
                                   @RequestParam int rating,
@@ -246,6 +322,14 @@ public class ProductController {
         return "redirect:/products/product-page/" + id;
     }
 
+    /**
+     * Shows the form for editing an existing product, accessible only by the owning company.
+     *
+     * @param id product ID to edit
+     * @param principal security principal representing the logged-in user
+     * @param model the model for view attributes
+     * @return the product management view pre-filled for editing, or error view if unauthorized or not found
+     */
     @GetMapping("/edit/{id}")
     public String showEditProductForm(@PathVariable Long id, Principal principal, Model model) {
         ProductEntity product = productService.findById(id).orElse(null);
@@ -266,6 +350,20 @@ public class ProductController {
         return "products-management";
     }
 
+    /**
+     * Handles updating an existing product's details, authorized only for the owning company.
+     *
+     * @param id product ID to update
+     * @param productName updated product name
+     * @param category updated category
+     * @param price updated price
+     * @param quantity updated quantity
+     * @param description updated description
+     * @param imageUrl updated image URL
+     * @param principal security principal representing the logged-in user
+     * @param model the model for view attributes
+     * @return redirection to the company's product list on success, or error view otherwise
+     */
     @PostMapping("/edit/{id}")
     public String updateProduct(@PathVariable Long id,
                                 @RequestParam String productName,
@@ -302,18 +400,4 @@ public class ProductController {
 
         return "redirect:/products/my-products";
     }
-
-    /* @GetMapping("")
-    public String getFilteredProducts(@RequestParam(required = false) String category,
-                                      @RequestParam(required = false) String name,
-                                      Model model) {
-        List<ProductEntity> products = productService.getFilteredProducts(category, name);
-        model.addAttribute("products", products);
-
-        model.addAttribute("categories", Category.values());
-        model.addAttribute("selectedCategory", category);
-        model.addAttribute("searchName", name);
-
-        return "products";
-    } */
 }
