@@ -2,6 +2,7 @@ package com.example.ex4spring.controllers;
 
 import com.example.ex4spring.model.*;
 import com.example.ex4spring.services.*;
+import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -118,5 +119,61 @@ public class OrderController {
 
         model.addAttribute("orders", orders);
         return "orders";
+    }
+
+    @PostMapping("/buy-from-cart")
+    @Transactional
+    public String confirmCartPurchase(Principal principal,
+                                      HttpSession session,
+                                      RedirectAttributes redirectAttributes,
+                                      Model model) {
+
+        UserEntity buyer = userService.findByEmail(principal.getName()).orElse(null);
+        if (buyer == null) {
+            model.addAttribute("error", "User not found.");
+            return "error";
+        }
+
+        // Retrieve cart from session
+        List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
+        if (cart == null || cart.isEmpty()) {
+            redirectAttributes.addFlashAttribute("error", "Your cart is empty.");
+            return "redirect:/cart/view"; // or wherever your cart page is
+        }
+
+        List<String> failedItems = new ArrayList<>();
+
+        for (CartItem item : cart) {
+            ProductEntity product = productService.findById(item.getProductId()).orElse(null);
+            if (product == null || product.getQuantity() < item.getQuantity()) {
+                failedItems.add(product != null ? product.getName() : "Unknown product");
+                continue;
+            }
+
+            OrderEntity order = new OrderEntity();
+            order.setProduct(product);
+            order.setBuyer(buyer);
+            order.setQuantityPurchased(item.getQuantity());
+            order.setTotalPrice(product.getPrice() * item.getQuantity());
+            order.setPurchaseDate(LocalDateTime.now());
+            order.setSellerCompany(product.getCompany());
+
+            orderService.save(order);
+
+            // Decrease stock
+            product.setQuantity(product.getQuantity() - item.getQuantity());
+            productService.save(product);
+        }
+
+        // Clear the cart in session after purchase
+        session.removeAttribute("cart");
+
+        if (!failedItems.isEmpty()) {
+            redirectAttributes.addFlashAttribute("error", "Failed to purchase: " + String.join(", ", failedItems));
+        } else {
+            redirectAttributes.addFlashAttribute("message", "Purchase successful for all cart items.");
+        }
+
+        return "redirect:/orders/my-orders";
     }
 }

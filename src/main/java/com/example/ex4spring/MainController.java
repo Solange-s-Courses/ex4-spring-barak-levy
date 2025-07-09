@@ -20,7 +20,7 @@ public class MainController {
     private static Logger logger = LoggerFactory.getLogger(MainController.class);
 
     /** Home page. */
-    @RequestMapping("/")
+    /* @RequestMapping("/")
     public String index() {
         return "index";
     }
@@ -40,14 +40,14 @@ public class MainController {
      * Note that we can access current logged user just by adding the Principal
      * parameter
      */
-    @RequestMapping("/admin")
+    /* @RequestMapping("/admin")
     public String adminIndex(Principal principal) {
         System.out.println("Current logged user details: " + principal );
         return "admin/index";
-    }
+    } */
 
     /** Shared zone index. */
-    @RequestMapping("/shared")
+    /* @RequestMapping("/shared")
     public String sharedIndex() {
         // print current logged user details - withouth using the Principal parameter
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -57,7 +57,7 @@ public class MainController {
 
 
         return "shared/index";
-    }
+    } */
 
     /** Simulation of an exception. */
     @RequestMapping("/simulateError")

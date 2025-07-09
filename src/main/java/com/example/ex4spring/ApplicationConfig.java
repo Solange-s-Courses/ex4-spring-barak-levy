@@ -61,7 +61,8 @@ public class ApplicationConfig {
                                 .requestMatchers("/css/**", "/", "/403", "/errorpage", "/simulateError",
                                         "/register", "/login").permitAll()
                                 .requestMatchers("/admin/**", "/api/users/**", "/api/**").hasRole("ADMIN") // the ** represents any subpath
-                                .requestMatchers("/user/**", "/orders/confirm", "/orders/buy").hasRole("USER")
+                                .requestMatchers("/user/**", "/orders/confirm", "/orders/buy", "/cart/**",
+                                        "/checkout", "orders/buy-from-cart").hasRole("USER")
                                 .requestMatchers("/products/management", "/products/add", "/products/my-products",
                                         "/products/edit/**").hasRole("COMPANY")
                                 .requestMatchers("/shared/**", "/products", "/products/my", "/api/users/profile",

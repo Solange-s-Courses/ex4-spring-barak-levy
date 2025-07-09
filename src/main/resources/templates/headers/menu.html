@@ -24,6 +24,9 @@
             <a sec:authorize="hasAnyRole('USER', 'COMPANY')"
                th:href="@{/orders/my-orders}" class="btn btn-primary">Orders</a>
 
+            <a sec:authorize="hasAnyRole('USER')"
+               th:href="@{/cart}" class="btn btn-primary">Cart</a>
+
             <a sec:authorize="hasAnyRole('ADMIN')"
                th:href="@{/admin/all-orders}" class="btn btn-primary">Orders</a>
 
