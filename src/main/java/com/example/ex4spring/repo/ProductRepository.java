@@ -1,6 +1,7 @@
 package com.example.ex4spring.repo;
 
 import com.example.ex4spring.model.Category;
+import com.example.ex4spring.model.CompanyEntity;
 import com.example.ex4spring.model.ProductEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
@@ -8,6 +9,10 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.Query;
 
+/**
+ * Repository interface for {@link ProductEntity} entities.
+ * Extends {@link JpaRepository} to provide CRUD operations and custom queries.
+ */
 public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
 
     List<ProductEntity> findByCompanyIdAndIsDeletedFalse(Long companyId);

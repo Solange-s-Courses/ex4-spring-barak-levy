@@ -12,6 +12,10 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * Controller responsible for managing the admin.
+ */
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -35,7 +39,14 @@ public class AdminController {
         this.orderService = orderService;
     }
 
-    // List of all products
+    /**
+     * Displays a list of all products for administrative management.
+     * Accessible only to authenticated admins.
+     *
+     * @param principal the currently logged-in admin
+     * @param model the model to hold the product list
+     * @return the view for managing company products
+     */
     @GetMapping("/products-management")
     public String listProducts(Principal principal, Model model) {
         AdminEntity admin = adminService.findByEmail(principal.getName())
@@ -50,7 +61,15 @@ public class AdminController {
         return "company-products";
     }
 
-    // View all the orders
+    /**
+     * Displays all orders in the system.
+     * Accessible only to authenticated admins.
+     *
+     * @param principal the currently logged-in admin
+     * @param message optional message to display in the view
+     * @param model the model to hold the order list and message
+     * @return the view showing all orders
+     */
     @GetMapping("/all-orders")
     public String viewOrders(Principal principal,
                              @RequestParam(value = "message", required = false) String message,
@@ -76,7 +95,13 @@ public class AdminController {
         return "orders";
     }
 
-    // List of all the users
+    /**
+     * Displays a list of all users for admin management.
+     *
+     * @param principal the currently logged-in admin
+     * @param model the model to hold the user list
+     * @return the view for managing users
+     */
     @GetMapping("/users-management")
     public String listUsers(Principal principal, Model model) {
         AdminEntity admin = adminService.findByEmail(principal.getName())
@@ -95,6 +120,14 @@ public class AdminController {
         return "users-management";
     }
 
+    /**
+     * Enables or disables access for a user (locks or unlocks the account).
+     *
+     * @param id the ID of the user to modify
+     * @param accessLocked true to lock access, false to unlock
+     * @param redirectAttributes used to pass error messages between redirects
+     * @return redirection to the user management page
+     */
     @PostMapping("/toggle-user-access/{id}")
     public String toggleAccess(@PathVariable Long id,
                                @RequestParam boolean accessLocked,

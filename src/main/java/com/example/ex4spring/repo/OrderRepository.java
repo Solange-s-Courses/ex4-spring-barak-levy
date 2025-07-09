@@ -7,6 +7,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * Repository interface for {@link OrderEntity} entities.
+ * Extends {@link JpaRepository} to provide CRUD operations and custom queries.
+ */
 @Repository
 public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
 

@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collections;
 import java.util.Map;
 
+/**
+ * Controller for handling user registration.
+ */
 @Controller
 public class RegisterController {
 
@@ -23,6 +26,14 @@ public class RegisterController {
     private final CompanyService companyService;
     private final PasswordEncoder passwordEncoder;
 
+    /**
+     * Constructs a RegisterController with injected services and password encoder.
+     *
+     * @param userService service for managing users
+     * @param adminService service for managing admins
+     * @param companyService service for managing companies
+     * @param passwordEncoder encoder for hashing passwords
+     */
     @Autowired
     public RegisterController(UserService userService,
                               AdminService adminService,
@@ -34,18 +45,30 @@ public class RegisterController {
         this.passwordEncoder = passwordEncoder;
     }
 
+    /**
+     * Displays the registration form.
+     * Redirects authenticated users to the products page.
+     *
+     * @param authentication the current authentication context
+     * @return the registration form view or a redirect to /products
+     */
     @GetMapping("/register")
     public String showRegisterForm(Authentication authentication) {
-
         if (authentication != null &&
                 authentication.isAuthenticated() &&
                 !(authentication instanceof AnonymousAuthenticationToken)) {
             return "redirect:/products";
         }
-
         return "/register";
     }
 
+    /**
+     * Checks whether an email is already taken by any type of user.
+     * Accessible via AJAX from the frontend.
+     *
+     * @param email the email to check
+     * @return a JSON response indicating whether the email exists
+     */
     @GetMapping("/api/users/check-email")
     public ResponseEntity<Map<String, Boolean>> checkEmailExists(@RequestParam String email) {
         boolean exists = userService.findByEmail(email).isPresent() ||
@@ -54,6 +77,20 @@ public class RegisterController {
         return ResponseEntity.ok(Collections.singletonMap("exists", exists));
     }
 
+    /**
+     * Processes registration form submission and creates a new user,
+     * company, or admin based on the selected user type.
+     * Check if the password is right and if email already exists in the system,
+     * Encode password before storing it and create and save the appropriate user type.
+     *
+     * @param userType the type of user to register (USER, COMPANY, ADMIN)
+     * @param userName the desired username
+     * @param email the email address
+     * @param password the password
+     * @param confirmPassword confirmation of the password
+     * @param model a map for returning error messages to the view
+     * @return redirect to login on success or back to register page with error
+     */
     @PostMapping("/register")
     public String registerUser(@RequestParam String userType,
                                @RequestParam String userName,
