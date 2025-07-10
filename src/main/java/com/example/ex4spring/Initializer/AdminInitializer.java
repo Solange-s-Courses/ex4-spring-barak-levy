@@ -27,7 +27,7 @@ public class AdminInitializer implements ApplicationListener<ContextRefreshedEve
         if (adminService.findByEmail("admin@example.com").isEmpty()) {
             AdminEntity admin = new AdminEntity();
             admin.setUserName("admin");
-            admin.setEmail("admin@example.com");
+            admin.setEmail("admin@gmail.com");
             admin.setPassword(passwordEncoder.encode("123"));
             admin.setRole(UserRole.ADMIN);
             adminService.save(admin);
