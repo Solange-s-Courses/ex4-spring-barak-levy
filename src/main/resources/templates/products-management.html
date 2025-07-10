@@ -21,9 +21,11 @@
                 <label for="category" class="form-label">Select Category</label>
                 <select class="form-select" id="category" name="category" required>
                     <option value="" disabled th:if="${!isEdit}" selected>Select Category</option>
-                    <option value="SMARTPHONES" th:selected="${product?.category?.name() == 'SMARTPHONES'}">Smartphones</option>
-                    <option value="COMPUTERS" th:selected="${product?.category?.name() == 'COMPUTERS'}">Computers</option>
-                    <option value="TV" th:selected="${product?.category?.name() == 'TV'}">TV</option>
+                    <option th:each="cat : ${categories}"
+                            th:value="${cat.name()}"
+                            th:text="${cat.displayName}"
+                            th:selected="${product?.category?.name() == cat.name()}">
+                    </option>
                 </select>
             </div>
 

@@ -55,6 +55,7 @@ public class ProductController {
     @GetMapping("/management")
     public String showProductManagementPage(Model model) {
         model.addAttribute("isEdit", false);
+        model.addAttribute("categories", Category.values());
         return "/products-management";
     }
 
@@ -134,6 +135,8 @@ public class ProductController {
             model.addAttribute("error", "Only company users can create products.");
             return "products";
         }
+
+        model.addAttribute("categories", Category.values());
 
         ProductEntity product = new ProductEntity();
         product.setName(productName);
@@ -347,6 +350,7 @@ public class ProductController {
 
         model.addAttribute("product", product);
         model.addAttribute("isEdit", true);
+        model.addAttribute("categories", Category.values());
         return "products-management";
     }
 
@@ -388,6 +392,8 @@ public class ProductController {
             model.addAttribute("error", "Unauthorized to update this product.");
             return "error";
         }
+
+        model.addAttribute("categories", Category.values());
 
         product.setName(productName);
         product.setCategory(category);
