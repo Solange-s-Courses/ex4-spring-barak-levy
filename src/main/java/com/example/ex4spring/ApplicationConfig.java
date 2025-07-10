@@ -19,29 +19,6 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
 public class ApplicationConfig {
 
-    /* @Bean
-    public UserDetailsService userDetailsService(PasswordEncoder bCryptPasswordEncoder) {
-        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        manager.createUser(User.withUsername("user")
-                .password(bCryptPasswordEncoder.encode("password"))
-                .roles("USER")
-                .build());
-        manager.createUser(User.withUsername("admin")
-                .password(bCryptPasswordEncoder.encode("password"))
-                .roles("ADMIN")
-                .build());
-        manager.createUser(User.withUsername("useradmin")
-                .password(bCryptPasswordEncoder.encode("password"))
-                .roles("USER", "ADMIN")
-                .build());
-        return manager;
-    } */
-
-    /* @Bean
-    public UserDetailsService userDetailsService() {
-        return new CustomUserDetailsService();
-    } */
-
     @Autowired
     private CustomLoginFailureHandler customLoginFailureHandler;
 
@@ -66,7 +43,7 @@ public class ApplicationConfig {
                                 .requestMatchers("/products/management", "/products/add", "/products/my-products",
                                         "/products/edit/**").hasRole("COMPANY")
                                 .requestMatchers("/shared/**", "/products", "/products/my", "/api/users/profile",
-                                        "/profile", "products/product-page/**").hasAnyRole("USER", "COMPANY", "ADMIN")
+                                        "/profile", "products/product-page/**", "/about").hasAnyRole("USER", "COMPANY", "ADMIN")
                                 .requestMatchers("/products/delete/**").hasAnyRole("COMPANY", "ADMIN")
                                 .requestMatchers("orders/my-orders").hasAnyRole("USER", "COMPANY")
                 )
