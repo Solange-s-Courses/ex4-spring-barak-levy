@@ -21,8 +21,8 @@ If the admin wasn't created yet, the program will intialize it with this emaill 
                 The company can also see all the orders for their products that the users made and view the reviews from users.
                 
                 The regular users can browse the products, write a review, purchase products and see their orders history.
-                he can also add products to the his shopping cart and buy multiply products from the same product in the same
-                purchase.
+                He can also add products to the his shopping cart that are saved in the seasion and buy multiply products from the
+                same product or multiply different products in the same purchase.
 
                 The platform also includes an admin who responsible for overseeing and moderating the system.
                 Admins can manage users and products - like to see all the user and to block access for users, see all the products and soft delete itm also see all the orders that were made -
