@@ -8,6 +8,8 @@ admin email: admin@gmail.com
 
 admin password: 123
 
+If the admin wasn't created yet, the program will intialize it with this emaill and password.
+
 # Description about this site:
             
                 This website is an online platform for selling electronic products.
