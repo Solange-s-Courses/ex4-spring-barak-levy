@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9456cbcc-399c-482f-a58b-7db3a68ad653" name="Changes" comment="Made the products page more responsive.">
+    <list default="true" id="9456cbcc-399c-482f-a58b-7db3a68ad653" name="Changes" comment="Add the idea folder.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/company-products.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/company-products.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/product-details.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/product-details.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,7 +132,7 @@
       <workItem from="1749252424604" duration="64614000" />
       <workItem from="1750618021793" duration="3619000" />
       <workItem from="1751274282767" duration="62670000" />
-      <workItem from="1752138941266" duration="22203000" />
+      <workItem from="1752138941266" duration="24838000" />
     </task>
     <task id="LOCAL-00001" summary="Created a base user class for all the 3 different users type: user, company and admin. Add the userEntity, Product and Review classes and their repositories. Add the security for login as user or admin and the page for login.">
       <option name="closed" value="true" />
@@ -420,7 +422,15 @@
       <option name="project" value="LOCAL" />
       <updated>1752229553790</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="Add the idea folder.">
+      <option name="closed" value="true" />
+      <created>1752229835802</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1752229835802</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -438,7 +448,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Now companies can create a new product and see all the products that they created. Also added the profile page for the users and added the menu for moving between the different pages on the site." />
     <MESSAGE value="Add the option for companies to soft delete their products." />
     <MESSAGE value="Add the OrderEntity class, repo, service and controller and now users can buy products and see all their orders. Also the company can see all the orders of the purchases that users made on their products. Made the menu better and the titles for each page looking better and added a confirm buying screen." />
     <MESSAGE value="Add the page for each product and now you can see all the reviews for this products and users who bought the product can write a review and rate it." />
@@ -463,6 +472,7 @@
     <MESSAGE value="." />
     <MESSAGE value="Add the sql data." />
     <MESSAGE value="Made the products page more responsive." />
-    <option name="LAST_COMMIT_MESSAGE" value="Made the products page more responsive." />
+    <MESSAGE value="Add the idea folder." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add the idea folder." />
   </component>
 </project>

@@ -28,6 +28,7 @@
         <thead class="table-light">
         <tr>
             <th>Name</th>
+            <th sec:authorize="hasRole('ADMIN')">Company</th>
             <th>Category</th>
             <th>Price</th>
             <th>Quantity</th>
@@ -38,6 +39,7 @@
         <tbody>
         <tr th:each="product : ${products}">
             <td th:text="${product.name}">Product Name</td>
+            <td sec:authorize="hasRole('ADMIN')" th:text="${product.company.userName}">Company</td>
             <td th:text="${product.category.displayName}">Category</td>
             <td th:text="${product.price}">0</td>
             <td th:text="${product.quantity}">0</td>
