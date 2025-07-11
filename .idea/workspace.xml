@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="9456cbcc-399c-482f-a58b-7db3a68ad653" name="Changes" comment="Made the products page more responsive." />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Interface" />
+        <option value="HTML File" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;BarakLevy100&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Solange-s-Courses/ex4-spring-barak-levy&quot;,
+    &quot;accountId&quot;: &quot;95168e9f-6de2-4968-ba53-e245508baef1&quot;
+  }
+}</component>
+  <component name="KubernetesApiPersistence"><![CDATA[{}]]></component>
+  <component name="KubernetesApiProvider"><![CDATA[{
+  "isMigrated": true
+}]]></component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="DEPENDENCY_CHECKER_PROBLEMS_TAB" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="2xn2egMsTgqWmdZ3a0fxcrfG5JF" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;Spring Boot.Ex4SpringApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/barak/IdeaProjects/InternetProject/ex4-spring&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.appearance&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\barak\IdeaProjects\InternetProject\ex4-spring" />
+      <recent name="C:\Users\barak\IdeaProjects\InternetProject\ex4-spring\src\main\resources" />
+      <recent name="C:\Users\barak\IdeaProjects\InternetProject\ex4-spring\src\main\resources\templates" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\barak\IdeaProjects\InternetProject\ex4-spring\src\main\resources\templates" />
+      <recent name="C:\Users\barak\IdeaProjects\InternetProject\ex4-spring\src\main\resources\templates\login-register" />
+      <recent name="C:\Users\barak\IdeaProjects\InternetProject\ex4-spring\src\main\resources\templates\shared" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.example.ex4spring" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Ex4SpringApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="ex4-spring" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.ex4spring.Ex4SpringApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.26053.27" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.26053.27" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="StructureViewState">
+    <option name="selectedTab" value="Logical" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9456cbcc-399c-482f-a58b-7db3a68ad653" name="Changes" comment="" />
+      <created>1748559616528</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1748559616528</updated>
+      <workItem from="1748559617345" duration="3268000" />
+      <workItem from="1748562907712" duration="100933000" />
+      <workItem from="1749252424604" duration="64614000" />
+      <workItem from="1750618021793" duration="3619000" />
+      <workItem from="1751274282767" duration="62670000" />
+      <workItem from="1752138941266" duration="21942000" />
+    </task>
+    <task id="LOCAL-00001" summary="Created a base user class for all the 3 different users type: user, company and admin. Add the userEntity, Product and Review classes and their repositories. Add the security for login as user or admin and the page for login.">
+      <option name="closed" value="true" />
+      <created>1748615781582</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1748615781582</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Add the CompanyEntity and AdminEntity classes and their repositories.">
+      <option name="closed" value="true" />
+      <created>1748617757791</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1748617757791</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Add the UserService and the UserController class and a register HTML page for users and companies to register to the site.">
+      <option name="closed" value="true" />
+      <created>1748631323418</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1748631323418</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Now it is saving the user in the ex4 database after registering.">
+      <option name="closed" value="true" />
+      <created>1748637364709</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1748637364709</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Now everytime we register it will check if the email has been used already by another user and if yes it won't let you create this user. Add an api for fetching the emails or the admin can see a specific user by his id or email.">
+      <option name="closed" value="true" />
+      <created>1748646391470</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1748646391470</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Created the product management class that you can now add with him new products. Add the company service class and add more variables to the product class.">
+      <option name="closed" value="true" />
+      <created>1748703431447</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1748703431447</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Add the Product Service and fix a few things with the product and company.">
+      <option name="closed" value="true" />
+      <created>1748706676202</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1748706676202</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Fix that now when you are registering the new user will be added to the database and can also register with a company now. Also Made the services class better.">
+      <option name="closed" value="true" />
+      <created>1748904004055</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1748904004055</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Add the page that show al the products and you can filter the products by category or name.">
+      <option name="closed" value="true" />
+      <created>1748959380495</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1748959380495</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Now companies can create a new product and see all the products that they created. Also added the profile page for the users and added the menu for moving between the different pages on the site.">
+      <option name="closed" value="true" />
+      <created>1749181403038</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1749181403038</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Add the option for companies to soft delete their products.">
+      <option name="closed" value="true" />
+      <created>1749187377587</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1749187377587</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Add the OrderEntity class, repo, service and controller and now users can buy products and see all their orders. Also the company can see all the orders of the purchases that users made on their products. Made the menu better and the titles for each page looking better and added a confirm buying screen.">
+      <option name="closed" value="true" />
+      <created>1749266193467</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1749266193467</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Add the page for each product and now you can see all the reviews for this products and users who bought the product can write a review and rate it.">
+      <option name="closed" value="true" />
+      <created>1749313242923</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1749313242923</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Now you can only write one review per product if you bought it and you can edit the review. Company can now edit their products. Made the page for each product looking better with star rating.">
+      <option name="closed" value="true" />
+      <created>1749358294264</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1749358294264</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Added error and prevent you from buying a product that is out of stock and add a purchase successful message after buying a product.">
+      <option name="closed" value="true" />
+      <created>1749367268880</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1749367268880</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Add the Description of My Project Word file that describe the project.">
+      <option name="closed" value="true" />
+      <created>1749419318516</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1749419318516</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Now the star rating is updated dynamically and you can buy multiply times the same product in one purchase.">
+      <option name="closed" value="true" />
+      <created>1750619625036</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1750619625037</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Add the confirm password for the register page so the user need to write the same password twice when registering.">
+      <option name="closed" value="true" />
+      <created>1750621294352</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1750621294352</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Add the admin service and control and now the admin can see all the products list and delete a product.">
+      <option name="closed" value="true" />
+      <created>1751285880154</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1751285880154</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Now the Admin can see all the orders of the purchases that every user made.">
+      <option name="closed" value="true" />
+      <created>1751292294592</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1751292294592</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Add the users management page of all the users for the admin to see and allow him to allow or lock access for each user and also made the logout and register page to redirect to the home page when you are login.">
+      <option name="closed" value="true" />
+      <created>1751391664749</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1751391664749</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Add the admin action to lock access for users and add the possibility to add imageUrl for the products.">
+      <option name="closed" value="true" />
+      <created>1751495772724</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1751495772724</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Now the admin action to lock access for users is working and you can see the image of all the products in the site.">
+      <option name="closed" value="true" />
+      <created>1751541031475</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1751541031475</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Made the functionality of the site like in confirm order and other places better.">
+      <option name="closed" value="true" />
+      <created>1751711481228</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1751711481228</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Add the cart so you can now add product to it and choose how many for each product and buy all the product at once in the cart.">
+      <option name="closed" value="true" />
+      <created>1752072853573</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1752072853573</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Add the description for the functions.">
+      <option name="closed" value="true" />
+      <created>1752102399479</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1752102399479</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Add the description for the functions.">
+      <option name="closed" value="true" />
+      <created>1752103277721</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1752103277721</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Add the about the site page.">
+      <option name="closed" value="true" />
+      <created>1752139124600</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1752139124600</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Add the admin initializer.">
+      <option name="closed" value="true" />
+      <created>1752142674307</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1752142674307</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Made a better UI for the categories and also some more things">
+      <option name="closed" value="true" />
+      <created>1752152530450</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1752152530450</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Fix the email in the Admin initializer.">
+      <option name="closed" value="true" />
+      <created>1752162234034</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1752162234034</updated>
+    </task>
+    <task id="LOCAL-00032" summary=".">
+      <option name="closed" value="true" />
+      <created>1752224464175</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1752224464175</updated>
+    </task>
+    <task id="LOCAL-00033" summary=".">
+      <option name="closed" value="true" />
+      <created>1752225421171</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1752225421171</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Add the sql data.">
+      <option name="closed" value="true" />
+      <created>1752226004725</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1752226004725</updated>
+    </task>
+    <task id="LOCAL-00035" summary="Made the products page more responsive.">
+      <option name="closed" value="true" />
+      <created>1752229246348</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1752229246348</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Now companies can create a new product and see all the products that they created. Also added the profile page for the users and added the menu for moving between the different pages on the site." />
+    <MESSAGE value="Add the option for companies to soft delete their products." />
+    <MESSAGE value="Add the OrderEntity class, repo, service and controller and now users can buy products and see all their orders. Also the company can see all the orders of the purchases that users made on their products. Made the menu better and the titles for each page looking better and added a confirm buying screen." />
+    <MESSAGE value="Add the page for each product and now you can see all the reviews for this products and users who bought the product can write a review and rate it." />
+    <MESSAGE value="Now you can only write one review per product if you bought it and you can edit the review. Company can now edit their products. Made the page for each product looking better with star rating." />
+    <MESSAGE value="Added error and prevent you from buying a product that is out of stock and add a purchase successful message after buying a product." />
+    <MESSAGE value="Add the Description of My Project Word file that describe the project." />
+    <MESSAGE value="Now the star rating is updated dynamically and you can buy multiply times the same product in one purchase." />
+    <MESSAGE value="Add the confirm password for the register page so the user need to write the same password twice when registering." />
+    <MESSAGE value="Add the admin service and control and now the admin can see all the products list and delete a product." />
+    <MESSAGE value="Now the Admin can see all the orders of the purchases that every user made." />
+    <MESSAGE value="Add the users management page of all the users for the admin to see and allow him to allow or lock access for each user and also made the logout and register page to redirect to the home page when you are login." />
+    <MESSAGE value="Add the admin action to lock access for users and add the possibility to add imageUrl for the products." />
+    <MESSAGE value="Now the admin action to lock access for users is working and you can see the image of all the products in the site." />
+    <MESSAGE value="Made the functionality of the site like in confirm order and other places better." />
+    <MESSAGE value="Add the cart so you can now add product to it and choose how many for each product and buy all the product at once in the cart." />
+    <MESSAGE value="Add the description for the functions." />
+    <MESSAGE value="Add the about the site page." />
+    <MESSAGE value="Add the admin initializer." />
+    <MESSAGE value="Made a better UI for the categories and also some more things" />
+    <MESSAGE value="Merge remote-tracking branch 'origin/master'" />
+    <MESSAGE value="Fix the email in the Admin initializer." />
+    <MESSAGE value="." />
+    <MESSAGE value="Add the sql data." />
+    <MESSAGE value="Made the products page more responsive." />
+    <option name="LAST_COMMIT_MESSAGE" value="Made the products page more responsive." />
+  </component>
+</project>
