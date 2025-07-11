@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9456cbcc-399c-482f-a58b-7db3a68ad653" name="Changes" comment="Made the products page more responsive." />
+    <list default="true" id="9456cbcc-399c-482f-a58b-7db3a68ad653" name="Changes" comment="Made the products page more responsive.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -128,7 +130,7 @@
       <workItem from="1749252424604" duration="64614000" />
       <workItem from="1750618021793" duration="3619000" />
       <workItem from="1751274282767" duration="62670000" />
-      <workItem from="1752138941266" duration="21942000" />
+      <workItem from="1752138941266" duration="22203000" />
     </task>
     <task id="LOCAL-00001" summary="Created a base user class for all the 3 different users type: user, company and admin. Add the userEntity, Product and Review classes and their repositories. Add the security for login as user or admin and the page for login.">
       <option name="closed" value="true" />
@@ -410,7 +412,15 @@
       <option name="project" value="LOCAL" />
       <updated>1752229246348</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="Made the products page more responsive.">
+      <option name="closed" value="true" />
+      <created>1752229553790</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1752229553790</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
