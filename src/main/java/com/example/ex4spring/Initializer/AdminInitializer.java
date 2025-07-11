@@ -24,7 +24,7 @@ public class AdminInitializer implements ApplicationListener<ContextRefreshedEve
     public void onApplicationEvent(ContextRefreshedEvent event) {
         if (alreadySetup) return;
 
-        if (adminService.findByEmail("admin@example.com").isEmpty()) {
+        if (adminService.findByEmail("admin@gmail.com").isEmpty()) {
             AdminEntity admin = new AdminEntity();
             admin.setUserName("admin");
             admin.setEmail("admin@gmail.com");
