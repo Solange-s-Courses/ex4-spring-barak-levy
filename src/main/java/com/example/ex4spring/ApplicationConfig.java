@@ -39,13 +39,13 @@ public class ApplicationConfig {
                                         "/register", "/login").permitAll()
                                 .requestMatchers("/admin/**", "/api/users/**", "/api/**").hasRole("ADMIN") // the ** represents any subpath
                                 .requestMatchers("/user/**", "/orders/confirm", "/orders/buy", "/cart/**",
-                                        "/checkout", "orders/buy-from-cart").hasRole("USER")
+                                        "/checkout", "/orders/buy-from-cart").hasRole("USER")
                                 .requestMatchers("/products/management", "/products/add", "/products/my-products",
                                         "/products/edit/**").hasRole("COMPANY")
                                 .requestMatchers("/shared/**", "/products", "/products/my", "/api/users/profile",
                                         "/profile", "products/product-page/**", "/about").hasAnyRole("USER", "COMPANY", "ADMIN")
                                 .requestMatchers("/products/delete/**").hasAnyRole("COMPANY", "ADMIN")
-                                .requestMatchers("orders/my-orders").hasAnyRole("USER", "COMPANY")
+                                .requestMatchers("/orders/my-orders", "api/users/").hasAnyRole("USER", "COMPANY")
                 )
 
                 .formLogin(form -> form
