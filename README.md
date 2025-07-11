@@ -10,6 +10,8 @@ admin password: 123
 
 If the admin wasn't created yet, the program will intialize it with this emaill and password.
 
+The SQL data for ex4 is in the main folder in the file ex4.sql.
+
 # Description about this site:
             
                 This website is an online platform for selling electronic products.
